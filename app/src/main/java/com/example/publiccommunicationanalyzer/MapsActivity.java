@@ -5,12 +5,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -31,6 +35,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        final Button btnDelete = findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final Button btnAdd = findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MapsActivity.this, "btnAdd", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mapsViewModel = new ViewModelProvider(this).get(MapsViewModel.class);
         verticesList = new ArrayList<Vertex>();
@@ -68,5 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng warsaw = new LatLng(52.25, 21);
         mMap.addMarker(new MarkerOptions().position(warsaw).title("Marker in Warsaw"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(warsaw));
+        mMap.setMinZoomPreference(10.0f);
+        mMap.setMaxZoomPreference(16.0f);
     }
 }

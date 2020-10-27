@@ -28,32 +28,48 @@
             android:textStyle="bold"
             android:maxLines="1" />
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
+<!--        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            android:layout_width="210dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/colorBackground"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvStartStop"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/margin_xlarge"-->
+<!--                android:layout_marginStart="@dimen/margin_xlarge"-->
+<!--                android:text="ul. Kochanowskiego -"-->
+<!--                android:textSize="@dimen/font_medium"-->
+<!--                android:maxLines="1" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvEndStop"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/margin_xlarge"-->
+<!--                android:text="Plac Dickensa"-->
+<!--                android:textSize="@dimen/font_medium"-->
+<!--                android:maxLines="1" />-->
+
+<!--        </LinearLayout>-->
+
+        <TextView
+            android:id="@+id/tvRoute"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorBackground"
-            android:orientation="vertical">
+            android:layout_margin="@dimen/margin_xlarge"
+            android:text="TD-1BEM"
+            android:textSize="@dimen/font_xlarge"
+            android:textStyle="bold"
+            android:maxLines="1" />
 
-            <TextView
-                android:id="@+id/tvStartStop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_xlarge"
-                android:layout_marginStart="@dimen/margin_xlarge"
-                android:text="ul. Kochanowskiego -"
-                android:textSize="@dimen/font_medium"
-                android:maxLines="1" />
-
-            <TextView
-                android:id="@+id/tvEndStop"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_xlarge"
-                android:text="Plac Dickensa"
-                android:textSize="@dimen/font_medium"
-                android:maxLines="1" />
-
-        </LinearLayout>
+        <CheckBox
+            android:id="@+id/checkboxLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"/>
 
     </LinearLayout>
 
