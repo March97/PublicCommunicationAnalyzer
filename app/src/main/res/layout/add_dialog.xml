@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/add_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/dialog_line"
+        android:textSize="@dimen/font_large"
+        android:lines="3" />
+
+    <Spinner
+        android:id="@+id/add_dialog_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/btnBackAddDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_xlarge"
+            android:text="Wróć"
+            android:layout_weight="1"
+            android:background="@drawable/layout_bg"
+            android:textColor="@color/red"/>
+
+        <Button
+            android:id="@+id/btnContinueAddDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_xlarge"
+            android:text="Dalej"
+            android:layout_weight="1"
+            android:background="@drawable/layout_bg"
+            android:textColor="@color/green"/>
+
+    </LinearLayout>
+
+</LinearLayout>

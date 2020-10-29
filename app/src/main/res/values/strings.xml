@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PublicCommunicationAnalyzer</string>
     <string name="title_activity_maps">Map</string>
+    <string name="dialog_line">Wybierz numer linii:</string>
+    <string name="dialog_day">Wybierz dzień kursu:</string>
+    <string name="dialog_service">Wybierz konkretny kurs:</string>
 </resources>

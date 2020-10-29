@@ -48,6 +48,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AddDialog addDialog = new AddDialog(MapsActivity.this);
+                addDialog.show();
                 Toast.makeText(MapsActivity.this, "btnAdd", Toast.LENGTH_SHORT).show();
             }
         });
