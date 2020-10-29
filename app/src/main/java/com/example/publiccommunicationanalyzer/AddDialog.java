@@ -7,19 +7,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 
-public class AddDialog extends Dialog implements
-        android.view.View.OnClickListener {
+public class AddDialog extends Dialog implements android.view.View.OnClickListener {
 
     public Activity c;
     public Dialog d;
     public Button yes, no;
+    public Spinner s;
+    public ArrayList<String> arrayList;
+    public String[] array;
 
-    public AddDialog(Activity a) {
+    public AddDialog(Activity a, ArrayList<Edge> array) {
         super(a);
-        // TODO Auto-generated constructor stub
+
         this.c = a;
+        this.arrayList = new ArrayList<String>();
+        for(Edge edge: array) {
+            this.arrayList.add(edge.getLine());
+        }
+
+        this.array = new String[arrayList.size()];
+        this.array = arrayList.toArray(this.array);
     }
 
     @Override
@@ -29,9 +41,10 @@ public class AddDialog extends Dialog implements
         setContentView(R.layout.add_dialog);
         yes = (Button) findViewById(R.id.btnContinueAddDialog);
         no = (Button) findViewById(R.id.btnBackAddDialog);
+        s = (Spinner) findViewById(R.id.add_dialog_spinner);
+        s.setAdapter(new AddSpinnerAdapter(c, R.layout.item_line, array));
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
-
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -44,10 +57,15 @@ public class AddDialog extends Dialog implements
             case R.id.btnBackAddDialog:
                 dismiss();
                 break;
+            case R.id.add_dialog_spinner:
+//                spinner();
+                break;
             default:
                 break;
         }
         dismiss();
     }
+
+
 }
 

@@ -36,6 +36,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        mapsViewModel = new ViewModelProvider(this).get(MapsViewModel.class);
+        verticesList = new ArrayList<Vertex>();
+        edgesList = new ArrayList<Edge>();
+        edgesList.add(new Edge("",0,0,"S1","","","","",0,0));
+        edgesList.add(new Edge("",0,0,"720","","","","",0,0));
+        edgesList.add(new Edge("",0,0,"M1","","","","",0,0));
+        edgesList.add(new Edge("",0,0,"WKD","","","","",0,0));
+        edgesList.add(new Edge("",0,0,"17","","","","",0,0));
+
         final Button btnDelete = findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,15 +57,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddDialog addDialog = new AddDialog(MapsActivity.this);
+                AddDialog addDialog = new AddDialog(MapsActivity.this, edgesList);
                 addDialog.show();
                 Toast.makeText(MapsActivity.this, "btnAdd", Toast.LENGTH_SHORT).show();
             }
         });
-
-        mapsViewModel = new ViewModelProvider(this).get(MapsViewModel.class);
-        verticesList = new ArrayList<Vertex>();
-        edgesList = new ArrayList<Edge>();
 
         mapsViewModel.getAllVertex().observe(this, new Observer<List<Vertex>>() {
             @Override
