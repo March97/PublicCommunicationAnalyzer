@@ -4,4 +4,12 @@
     <string name="dialog_line">Wybierz numer linii:</string>
     <string name="dialog_day">Wybierz dzień kursu:</string>
     <string name="dialog_service">Wybierz konkretny kurs:</string>
+    <string name="DP">Dni powszednie</string>
+    <string name="DS">Dni świąteczne</string>
+    <string name="SB">Soboty</string>
+    <string name="NS">Noc niedziela/poniedziałek i czwartek/piątek</string>
+    <string name="NP">Noc piątek/sobota i sobota/niedziela</string>
+    <string name="NO">Noc dla wszystkich dni tygodnia</string>
+    <string name="D1">Dzień danego dnia tygodnia</string>
+    <string name="N1">Noc danego dnia tygodnia</string>
 </resources>

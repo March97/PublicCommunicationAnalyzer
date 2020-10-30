@@ -11,27 +11,21 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
-
-public class AddDialog extends Dialog implements android.view.View.OnClickListener {
+public class AddDayDialog extends Dialog implements android.view.View.OnClickListener {
 
     public Activity c;
     public Dialog d;
     public Button yes, no;
     public Spinner s;
-    public ArrayList<String> arrayList;
+    public String line;
     public String[] array;
 
-    public AddDialog(Activity a, ArrayList<Edge> array) {
+    public AddDayDialog(Activity a, String line) {
         super(a);
 
         this.c = a;
-        this.arrayList = new ArrayList<String>();
-        for(Edge edge: array) {
-            this.arrayList.add(edge.getLine());
-        }
-
-        this.array = new String[arrayList.size()];
-        this.array = arrayList.toArray(this.array);
+        this.line = line;
+        array = new String[] {"DP", "DS", "N7", "NO", "NP", "NS", "SB"};
     }
 
     @Override
@@ -42,7 +36,7 @@ public class AddDialog extends Dialog implements android.view.View.OnClickListen
         yes = (Button) findViewById(R.id.btnContinueAddDialog);
         no = (Button) findViewById(R.id.btnBackAddDialog);
         s = (Spinner) findViewById(R.id.add_dialog_spinner);
-        s.setAdapter(new AddSpinnerAdapter(c, R.layout.item_line, array));
+        s.setAdapter(new AddDaySpinnerAdapter(c, R.layout.item_line, array));
         yes.setOnClickListener(this);
         no.setOnClickListener(this);
     }
@@ -57,15 +51,9 @@ public class AddDialog extends Dialog implements android.view.View.OnClickListen
             case R.id.btnBackAddDialog:
                 dismiss();
                 break;
-            case R.id.add_dialog_spinner:
-//                spinner();
-                break;
             default:
                 break;
         }
         dismiss();
     }
-
-
 }
-

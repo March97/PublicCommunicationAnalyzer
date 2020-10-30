@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-public class AddSpinnerAdapter extends ArrayAdapter {
+public class AddLineSpinnerAdapter extends ArrayAdapter {
 
     String[] objects;
 
-    public AddSpinnerAdapter(@NonNull Context context, int resource, @NonNull String[] objects) {
+    public AddLineSpinnerAdapter(@NonNull Context context, int resource, @NonNull String[] objects) {
         super(context, resource, objects);
 
         this.objects = objects;

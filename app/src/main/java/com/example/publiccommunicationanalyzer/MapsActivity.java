@@ -14,7 +14,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -44,6 +43,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         edgesList.add(new Edge("",0,0,"M1","","","","",0,0));
         edgesList.add(new Edge("",0,0,"WKD","","","","",0,0));
         edgesList.add(new Edge("",0,0,"17","","","","",0,0));
+        edgesList.add(new Edge("",0,0,"1","","","","",0,0));
+        edgesList.add(new Edge("",0,0,"20","","","","",0,0));
+        edgesList.add(new Edge("",0,0,"R3","","","","",0,0));
+        edgesList.add(new Edge("",0,0,"L2","","","","",0,0));
+        edgesList.add(new Edge("",0,0,"N7","","","","",0,0));
 
         final Button btnDelete = findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -57,8 +61,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddDialog addDialog = new AddDialog(MapsActivity.this, edgesList);
-                addDialog.show();
+                AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, edgesList);
+                addLineDialog.show();
                 Toast.makeText(MapsActivity.this, "btnAdd", Toast.LENGTH_SHORT).show();
             }
         });
