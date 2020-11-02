@@ -12,25 +12,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvDay"
+            android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_xlarge"
-            android:text="DP"
+            android:text="14.13"
             android:textSize="@dimen/font_xxlarge"
             android:textStyle="bold"
             android:maxLines="1" />
-
-        <TextView
-            android:id="@+id/tvDayDescription"
-            android:layout_width="wrap_content"
-            android:maxWidth="1600dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_medium"
-            android:text="@string/N1"
-            android:layout_gravity="center"
-            android:textSize="@dimen/font_medium"
-            android:maxLines="2" />
 
     </LinearLayout>
 

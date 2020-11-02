@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class AddDayDialog extends Dialog implements android.view.View.OnClickLis
     public Spinner s;
     public String line;
     public String[] array;
+    public TextView title;
 
     public AddDayDialog(Activity a, String line) {
         super(a);
@@ -33,6 +35,8 @@ public class AddDayDialog extends Dialog implements android.view.View.OnClickLis
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_dialog);
+        title = (TextView) findViewById(R.id.add_dialog_title);
+        title.setText(R.string.dialog_day);
         yes = (Button) findViewById(R.id.btnContinueAddDialog);
         no = (Button) findViewById(R.id.btnBackAddDialog);
         s = (Spinner) findViewById(R.id.add_dialog_spinner);
@@ -46,7 +50,9 @@ public class AddDayDialog extends Dialog implements android.view.View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnContinueAddDialog:
-                c.finish();
+                //c.finish();
+                AddServiceDialog addServiceDialog = new AddServiceDialog(c, "154");
+                addServiceDialog.show();
                 break;
             case R.id.btnBackAddDialog:
                 dismiss();

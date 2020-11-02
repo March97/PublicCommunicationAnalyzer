@@ -25,6 +25,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private MapsViewModel mapsViewModel;
     private ArrayList<Vertex> verticesList;
     private ArrayList<Edge> edgesList;
+    private ArrayList<String> linesList;
+    private boolean listsReady;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        //czekaj na zaladowanie list wierzcholkow i krawedzi
+        listsReady = false;
 
         mapsViewModel = new ViewModelProvider(this).get(MapsViewModel.class);
         verticesList = new ArrayList<Vertex>();
@@ -53,7 +57,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
+
+                if(listsReady) {
+                    Toast.makeText(MapsActivity.this, "btnDelete",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(MapsActivity.this,
+                            "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -61,9 +73,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, edgesList);
-                addLineDialog.show();
-                Toast.makeText(MapsActivity.this, "btnAdd", Toast.LENGTH_SHORT).show();
+                //List<String> lines = mapsViewModel.getLines();
+                if(listsReady) {
+                    AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, linesList);
+                    //AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, edgesList);
+                    addLineDialog.show();
+                    Toast.makeText(MapsActivity.this, "btnAdd",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(MapsActivity.this,
+                            "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -71,6 +93,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onChanged(List<Vertex> vertices) {
                 verticesList = (ArrayList) vertices;
+                Toast.makeText(MapsActivity.this, "onChanged Vertex " +
+                        vertices.size() + " " + verticesList.size(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mapsViewModel.getLines().observe(this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                linesList = (ArrayList) strings;
+                Toast.makeText(MapsActivity.this, "onChanged Linie " +
+                        strings.size() + " " + linesList.size(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -78,6 +111,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onChanged(List<Edge> edges) {
                 edgesList = (ArrayList) edges;
+                Toast.makeText(MapsActivity.this, "onChanged Edge" + edges.size()
+                        + " " + edgesList.size(), Toast.LENGTH_SHORT).show();
+                listsReady = true;
             }
         });
     }

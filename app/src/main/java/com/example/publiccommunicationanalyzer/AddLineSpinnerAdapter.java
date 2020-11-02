@@ -10,11 +10,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 public class AddLineSpinnerAdapter extends ArrayAdapter {
 
-    String[] objects;
+    //String[] objects;
+    ArrayList<String> objects;
 
-    public AddLineSpinnerAdapter(@NonNull Context context, int resource, @NonNull String[] objects) {
+    public AddLineSpinnerAdapter(@NonNull Context context, int resource, @NonNull ArrayList<String> objects) {
         super(context, resource, objects);
 
         this.objects = objects;
@@ -27,27 +30,27 @@ public class AddLineSpinnerAdapter extends ArrayAdapter {
                 .inflate(R.layout.item_line, parent, false);
 
         TextView lineNumber = (TextView) itemView.findViewById(R.id.tvLine);
-        lineNumber.setText(objects[position]);
+        lineNumber.setText(objects.get(position));
 
         ImageView img = (ImageView) itemView.findViewById(R.id.ivLine);
 
-        if (objects[position].contains("S") || objects[position].contains("R")
-                || objects[position].contains("W"))
+        if (objects.get(position).contains("S") || objects.get(position).contains("R")
+                || objects.get(position).contains("W"))
             img.setImageResource(R.drawable.ic_baseline_train_24);
-        else if (objects[position].contains("L"))
+        else if (objects.get(position).contains("L"))
             img.setImageResource(R.drawable.ic_baseline_directions_bus_24);
-        else if (objects[position].contains("N"))
+        else if (objects.get(position).contains("N"))
             img.setImageResource(R.drawable.ic_baseline_directions_bus_24);
-        else if (objects[position].contains("C1") || objects[position].contains("C4")
-                || objects[position].contains("C6"))
+        else if (objects.get(position).contains("C1") || objects.get(position).contains("C4")
+                || objects.get(position).contains("C6"))
             img.setImageResource(R.drawable.ic_baseline_tram_24);
-        else if (objects[position].contains("C"))
+        else if (objects.get(position).contains("C"))
             img.setImageResource(R.drawable.ic_baseline_directions_bus_24);
-        else if (objects[position].contains("E"))
+        else if (objects.get(position).contains("E"))
             img.setImageResource(R.drawable.ic_baseline_directions_bus_24);
-        else if (objects[position].contains("M"))
+        else if (objects.get(position).contains("M"))
             img.setImageResource(R.drawable.ic_baseline_subway_24);
-        else if (Integer.parseInt(objects[position]) < 100)
+        else if (Integer.parseInt(objects.get(position)) < 100)
             img.setImageResource(R.drawable.ic_baseline_tram_24);
         else
             img.setImageResource(R.drawable.ic_baseline_directions_bus_24);

@@ -15,6 +15,7 @@ public class MapsViewModel extends AndroidViewModel {
 
     private LiveData<List<Vertex>> vertices;
     private LiveData<List<Edge>> edges;
+    private LiveData<List<String>> lines;
 
     public MapsViewModel(@NonNull Application application) {
         super(application);
@@ -25,6 +26,7 @@ public class MapsViewModel extends AndroidViewModel {
 
         vertices = vertexRepository.getListVertex();
         edges = edgeRepository.getListEdge();
+        lines = edgeRepository.getLines();
     }
 
     public void insertVertex(Vertex vertex) {
@@ -59,5 +61,8 @@ public class MapsViewModel extends AndroidViewModel {
 
     public LiveData<List<Edge>> getAllEdge() {
         return edges;
+    }
+    public LiveData<List<String>> getLines() {
+        return lines;
     }
 }
