@@ -31,12 +31,12 @@ public interface EdgeDao {
     @Query("SELECT line FROM edge_table GROUP BY line")
     LiveData<List<String>> getLines();
 
-    @Query("SELECT day FROM edge_table GROUP BY day")
-    List<String> getDays();
+    @Query("SELECT day FROM edge_table WHERE line LIKE :line GROUP BY day")
+    LiveData<List<String>> getDays(String line);
 
     @Query("SELECT service FROM edge_table WHERE line LIKE :line AND day LIKE :day GROUP BY service")
-    List<String> getServiceByLineDay(String line, String day);
+    LiveData<List<String>> getServiceByLineDay(String line, String day);
 
     @Query("SELECT * FROM edge_table WHERE line LIKE :service")
-    List<Edge> getEdgesByService(String service);
+    LiveData<List<Edge>> getEdgesByService(String service);
 }

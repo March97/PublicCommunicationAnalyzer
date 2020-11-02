@@ -1,63 +1,78 @@
 package com.example.publiccommunicationanalyzer;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatDialogFragment;
+
 import java.util.ArrayList;
-import java.util.List;
 
+public class AddLineDialog extends AppCompatDialogFragment {
 
-public class AddLineDialog extends Dialog implements android.view.View.OnClickListener {
-
-    public Activity c;
-    public Dialog d;
-    public Button yes, no;
     public Spinner s;
     public ArrayList<String> linesList;
+    public int pos;
+    private AddLineDialogListener listener;
 
-    //public AddLineDialog(Activity a, ArrayList<Edge> array) {
-    public AddLineDialog(Activity a, ArrayList<String> linesList) {
-        super(a);
-
-        this.c = a;
+    public AddLineDialog(ArrayList<String> linesList) {
         this.linesList = linesList;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.add_dialog);
-        yes = (Button) findViewById(R.id.btnContinueAddDialog);
-        no = (Button) findViewById(R.id.btnBackAddDialog);
-        s = (Spinner) findViewById(R.id.add_dialog_spinner);
-        s.setAdapter(new AddLineSpinnerAdapter(c, R.layout.item_line, linesList));
-        yes.setOnClickListener(this);
-        no.setOnClickListener(this);
-    }
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.layout_dialog, null);
 
-    @SuppressLint("NonConstantResourceId")
+        builder.setView(view)
+                .setTitle(R.string.dialog_line)
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String line = linesList.get(pos);
+                        listener.applyTexts(line);
+                    }
+                });
+        s = view.findViewById(R.id.dialog_spinner);
+        s.setAdapter(new AddLineSpinnerAdapter(getContext(), R.layout.item_line, linesList));
+        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                pos = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        return builder.create();
+    }
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnContinueAddDialog:
-                //c.finish();
-                AddDayDialog addDayDialog = new AddDayDialog(c, "154");
-                addDayDialog.show();
-                break;
-            case R.id.btnBackAddDialog:
-                dismiss();
-                break;
-            default:
-                break;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (AddLineDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() +
+                    "must implement ExampleDialogListener");
         }
-        dismiss();
+    }
+    public interface AddLineDialogListener {
+        void applyTexts(String line);
     }
 }
-

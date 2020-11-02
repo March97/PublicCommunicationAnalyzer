@@ -12,9 +12,9 @@ public class EdgeRepository {
     private EdgeDao edgeDao;
     private LiveData<List<Edge>> listEdge;
     private LiveData<List<String>> lines;
-    private List<String> days;
-    private List<String> services;
-    private List<Edge> selectedEdges;
+    private LiveData<List<String>> days;
+    private LiveData<List<String>> services;
+    private LiveData<List<Edge>> selectedEdges;
 
     public EdgeRepository(Application application) {
         GraphDatabase db = GraphDatabase.getInstance(application);
@@ -45,6 +45,21 @@ public class EdgeRepository {
 
     public LiveData<List<String>> getLines() {
         return lines;
+    }
+
+    public LiveData<List<String>> getDays(String line) {
+        days = edgeDao.getDays(line);
+        return days;
+    }
+
+    public LiveData<List<String>> getServices(String line, String day) {
+        services = edgeDao.getServiceByLineDay(line, day);
+        return services;
+    }
+
+    public LiveData<List<Edge>> getSelectedEdges(String service) {
+        selectedEdges = edgeDao.getEdgesByService(service);
+        return selectedEdges;
     }
 
     private static class InsertEdgeAsyncTask extends AsyncTask<Edge, Void, Void> {

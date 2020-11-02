@@ -19,39 +19,39 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, AddLineDialog.AddLineDialogListener {
 
     private GoogleMap mMap;
+    private volatile Bundle controlBundle;
     private MapsViewModel mapsViewModel;
     private ArrayList<Vertex> verticesList;
     private ArrayList<Edge> edgesList;
     private ArrayList<String> linesList;
+    private ArrayList<String> daysList;
+    private ArrayList<String> servicesList;
+    private ArrayList<Edge> selectedEdgesList;
     private boolean listsReady;
+    private String selectedLine;
+
+    private String selectedDay;
+    private String selectedService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        controlBundle = new Bundle();
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        //czekaj na zaladowanie list wierzcholkow i krawedzi
+
+        //czekaj na zaladowanie listy dostepnych linii
         listsReady = false;
 
         mapsViewModel = new ViewModelProvider(this).get(MapsViewModel.class);
         verticesList = new ArrayList<Vertex>();
         edgesList = new ArrayList<Edge>();
-        edgesList.add(new Edge("",0,0,"S1","","","","",0,0));
-        edgesList.add(new Edge("",0,0,"720","","","","",0,0));
-        edgesList.add(new Edge("",0,0,"M1","","","","",0,0));
-        edgesList.add(new Edge("",0,0,"WKD","","","","",0,0));
-        edgesList.add(new Edge("",0,0,"17","","","","",0,0));
-        edgesList.add(new Edge("",0,0,"1","","","","",0,0));
-        edgesList.add(new Edge("",0,0,"20","","","","",0,0));
-        edgesList.add(new Edge("",0,0,"R3","","","","",0,0));
-        edgesList.add(new Edge("",0,0,"L2","","","","",0,0));
-        edgesList.add(new Edge("",0,0,"N7","","","","",0,0));
 
         final Button btnDelete = findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +75,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 //List<String> lines = mapsViewModel.getLines();
                 if(listsReady) {
-                    AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, linesList);
-                    //AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, edgesList);
-                    addLineDialog.show();
+//                    AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, linesList);
+//                    //AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, edgesList);
+//                    addLineDialog.show();
+                    openAddDialog();
                     Toast.makeText(MapsActivity.this, "btnAdd",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -89,33 +90,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        mapsViewModel.getAllVertex().observe(this, new Observer<List<Vertex>>() {
-            @Override
-            public void onChanged(List<Vertex> vertices) {
-                verticesList = (ArrayList) vertices;
-                Toast.makeText(MapsActivity.this, "onChanged Vertex " +
-                        vertices.size() + " " + verticesList.size(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
         mapsViewModel.getLines().observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
                 linesList = (ArrayList) strings;
+                listsReady = true;
                 Toast.makeText(MapsActivity.this, "onChanged Linie " +
                         strings.size() + " " + linesList.size(), Toast.LENGTH_SHORT).show();
             }
         });
 
-        mapsViewModel.getAllEdge().observe(this, new Observer<List<Edge>>() {
+        mapsViewModel.getDays(selectedLine).observe(this, new Observer<List<String>>() {
             @Override
-            public void onChanged(List<Edge> edges) {
-                edgesList = (ArrayList) edges;
-                Toast.makeText(MapsActivity.this, "onChanged Edge" + edges.size()
-                        + " " + edgesList.size(), Toast.LENGTH_SHORT).show();
-                listsReady = true;
+            public void onChanged(List<String> strings) {
+                daysList = (ArrayList) strings;
+                Toast.makeText(MapsActivity.this, "onChanged dni " +
+                        strings.size() + " " + daysList.size(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        mapsViewModel.getServices(selectedLine, selectedDay).observe(this, new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+
+            }
+        });
+
+        mapsViewModel.getSelectedEdges(selectedService).observe(this, new Observer<List<Edge>>() {
+            @Override
+            public void onChanged(List<Edge> edges) {
+
+            }
+        });
+
+//        mapsViewModel.getAllVertex().observe(this, new Observer<List<Vertex>>() {
+//            @Override
+//            public void onChanged(List<Vertex> vertices) {
+//                verticesList = (ArrayList) vertices;
+//                Toast.makeText(MapsActivity.this, "onChanged Vertex " +
+//                        vertices.size() + " " + verticesList.size(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        mapsViewModel.getAllEdge().observe(this, new Observer<List<Edge>>() {
+//            @Override
+//            public void onChanged(List<Edge> edges) {
+//                edgesList = (ArrayList) edges;
+//                Toast.makeText(MapsActivity.this, "onChanged Edge" + edges.size()
+//                        + " " + edgesList.size(), Toast.LENGTH_SHORT).show();
+//                listsReady = true;
+//            }
+//        });
     }
 
     /**
@@ -137,5 +162,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(warsaw));
         mMap.setMinZoomPreference(10.0f);
         mMap.setMaxZoomPreference(16.0f);
+    }
+
+    public void openAddDialog() {
+        AddLineDialog exampleDialog = new AddLineDialog(linesList);
+        exampleDialog.show(getSupportFragmentManager(), "add line dialog");
+    }
+
+    @Override
+    public void applyTexts(String line) {
+        selectedLine = line;
+        Toast.makeText(MapsActivity.this, "selectedLine: " +
+                selectedLine, Toast.LENGTH_SHORT).show();
     }
 }

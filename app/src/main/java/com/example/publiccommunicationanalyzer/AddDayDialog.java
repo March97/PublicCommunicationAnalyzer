@@ -36,7 +36,7 @@ public class AddDayDialog extends Dialog implements android.view.View.OnClickLis
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.add_dialog);
         title = (TextView) findViewById(R.id.add_dialog_title);
-        title.setText(R.string.dialog_day);
+        title.setText("Wybierz dzięń tygodnia dla linii nr " + line + ":");
         yes = (Button) findViewById(R.id.btnContinueAddDialog);
         no = (Button) findViewById(R.id.btnBackAddDialog);
         s = (Spinner) findViewById(R.id.add_dialog_spinner);
