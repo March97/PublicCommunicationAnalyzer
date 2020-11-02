@@ -19,7 +19,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, AddLineDialog.AddLineDialogListener {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+        AddLineDialog.AddLineDialogListener, AddDayDialog.AddDayDialogListener,
+        AddServiceDialog.AddServiceDialogListener {
 
     private GoogleMap mMap;
     private volatile Bundle controlBundle;
@@ -32,9 +34,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<Edge> selectedEdgesList;
     private boolean listsReady;
     private String selectedLine;
-
     private String selectedDay;
     private String selectedService;
+
+    private Observer<List<String>> observerLinesList;
+    private Observer<List<String>> observerDaysList;
+    private Observer<List<String>> observerServicesList;
+    private Observer<List<Edge>> observerSelectedEdgesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
 
                 if(listsReady) {
+
                     Toast.makeText(MapsActivity.this, "btnDelete",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -73,12 +80,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //List<String> lines = mapsViewModel.getLines();
                 if(listsReady) {
-//                    AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, linesList);
-//                    //AddLineDialog addLineDialog = new AddLineDialog(MapsActivity.this, edgesList);
-//                    addLineDialog.show();
-                    openAddDialog();
+                    openAddLineDialog();
                     Toast.makeText(MapsActivity.this, "btnAdd",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -86,61 +89,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Toast.makeText(MapsActivity.this,
                             "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
-        mapsViewModel.getLines().observe(this, new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                linesList = (ArrayList) strings;
-                listsReady = true;
-                Toast.makeText(MapsActivity.this, "onChanged Linie " +
-                        strings.size() + " " + linesList.size(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mapsViewModel.getDays(selectedLine).observe(this, new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                daysList = (ArrayList) strings;
-                Toast.makeText(MapsActivity.this, "onChanged dni " +
-                        strings.size() + " " + daysList.size(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mapsViewModel.getServices(selectedLine, selectedDay).observe(this, new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-
-            }
-        });
-
-        mapsViewModel.getSelectedEdges(selectedService).observe(this, new Observer<List<Edge>>() {
-            @Override
-            public void onChanged(List<Edge> edges) {
-
-            }
-        });
-
-//        mapsViewModel.getAllVertex().observe(this, new Observer<List<Vertex>>() {
-//            @Override
-//            public void onChanged(List<Vertex> vertices) {
-//                verticesList = (ArrayList) vertices;
-//                Toast.makeText(MapsActivity.this, "onChanged Vertex " +
-//                        vertices.size() + " " + verticesList.size(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        mapsViewModel.getAllEdge().observe(this, new Observer<List<Edge>>() {
-//            @Override
-//            public void onChanged(List<Edge> edges) {
-//                edgesList = (ArrayList) edges;
-//                Toast.makeText(MapsActivity.this, "onChanged Edge" + edges.size()
-//                        + " " + edgesList.size(), Toast.LENGTH_SHORT).show();
-//                listsReady = true;
-//            }
-//        });
+        setObserverLinesList();
+        //setObserverDaysList();
+        //setObserverServicesList();
+        //setObserverSelectedEdgesList();
     }
 
     /**
@@ -164,15 +119,95 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMaxZoomPreference(16.0f);
     }
 
-    public void openAddDialog() {
-        AddLineDialog exampleDialog = new AddLineDialog(linesList);
-        exampleDialog.show(getSupportFragmentManager(), "add line dialog");
+    private void setObserverLinesList() {
+        mapsViewModel.getLines().observe(this, observerLinesList = new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                linesList = (ArrayList) strings;
+                listsReady = true;
+                Toast.makeText(MapsActivity.this, "onChanged Linie " +
+                        strings.size() + " " + linesList.size(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setObserverDaysList() {
+        mapsViewModel.getDays(selectedLine).observe(this, observerDaysList = new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                daysList = (ArrayList) strings;
+                Toast.makeText(MapsActivity.this, "onChanged dni " +
+                        strings.size() + " " + daysList.size(), Toast.LENGTH_SHORT).show();
+                openAddDayDialog();
+            }
+        });
+    }
+
+    private void setObserverServicesList() {
+        mapsViewModel.getServices(selectedLine, selectedDay).observe(this, observerServicesList = new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                servicesList = (ArrayList) strings;
+                Toast.makeText(MapsActivity.this, "onChanged kursy " +
+                        strings.size() + " " + servicesList.size(), Toast.LENGTH_SHORT).show();
+                openAddServiceDialog();
+            }
+        });
+    }
+
+    private void setObserverSelectedEdgesList() {
+        mapsViewModel.getSelectedEdges(selectedService).observe(this, observerSelectedEdgesList = new Observer<List<Edge>>() {
+            @Override
+            public void onChanged(List<Edge> edges) {
+                selectedEdgesList = (ArrayList) edges;
+                Toast.makeText(MapsActivity.this, "onChanged  wybrane łuki" +
+                        edges.size() + " " + selectedEdgesList.size(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void openAddLineDialog() {
+        AddLineDialog addLineDialog = new AddLineDialog(linesList);
+        addLineDialog.show(getSupportFragmentManager(), "add line dialog");
     }
 
     @Override
-    public void applyTexts(String line) {
+    public void applyTextsLine(String line) {
         selectedLine = line;
         Toast.makeText(MapsActivity.this, "selectedLine: " +
                 selectedLine, Toast.LENGTH_SHORT).show();
+
+        mapsViewModel.getDays(selectedLine).removeObserver(observerDaysList);
+        setObserverDaysList();
+    }
+
+    public void openAddDayDialog() {
+        AddDayDialog addDayDialog = new AddDayDialog(daysList);
+        addDayDialog.show(getSupportFragmentManager(), "add line dialog");
+    }
+
+    @Override
+    public void applyTextsDay(String day) {
+        selectedDay = day;
+        Toast.makeText(MapsActivity.this, "selectedDay: " +
+                selectedDay, Toast.LENGTH_SHORT).show();
+
+        mapsViewModel.getServices(selectedLine, selectedDay).removeObserver(observerServicesList);
+        setObserverServicesList();
+    }
+
+    public void openAddServiceDialog() {
+        AddServiceDialog addServiceDialog = new AddServiceDialog(servicesList);
+        addServiceDialog.show(getSupportFragmentManager(), "add line dialog");
+    }
+
+    @Override
+    public void applyTextsService(String service) {
+        selectedService = service;
+        Toast.makeText(MapsActivity.this, "selectedService: " + selectedService,
+                Toast.LENGTH_SHORT).show();
+
+        mapsViewModel.getSelectedEdges(selectedService).removeObserver(observerSelectedEdgesList);
+        setObserverSelectedEdgesList();
     }
 }

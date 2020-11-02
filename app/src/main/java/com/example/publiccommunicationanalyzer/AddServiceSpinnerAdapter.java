@@ -10,24 +10,25 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 public class AddServiceSpinnerAdapter extends ArrayAdapter {
 
-    String[] objects;
+    ArrayList<String> objects;
 
-    public AddServiceSpinnerAdapter(@NonNull Context context, int resource, @NonNull String[] objects) {
+    public AddServiceSpinnerAdapter(@NonNull Context context, int resource, @NonNull ArrayList<String> objects) {
         super(context, resource, objects);
 
         this.objects = objects;
     }
 
-    public View getCustomView(int position, View convertView,
-                              ViewGroup parent) {
+    public View getCustomView(int position, View convertView, ViewGroup parent) {
 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_service, parent, false);
 
         TextView lineNumber = (TextView) itemView.findViewById(R.id.tvService);
-        lineNumber.setText(objects[position]);
+        lineNumber.setText(objects.get(position));
 
         return itemView;
     }

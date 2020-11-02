@@ -1,6 +1,5 @@
 package com.example.publiccommunicationanalyzer;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
@@ -35,16 +33,16 @@ public class AddLineDialog extends AppCompatDialogFragment {
 
         builder.setView(view)
                 .setTitle(R.string.dialog_line)
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("wyjdź", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                     }
                 })
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton("dalej", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String line = linesList.get(pos);
-                        listener.applyTexts(line);
+                        listener.applyTextsLine(line);
                     }
                 });
         s = view.findViewById(R.id.dialog_spinner);
@@ -73,6 +71,6 @@ public class AddLineDialog extends AppCompatDialogFragment {
         }
     }
     public interface AddLineDialogListener {
-        void applyTexts(String line);
+        void applyTextsLine(String line);
     }
 }

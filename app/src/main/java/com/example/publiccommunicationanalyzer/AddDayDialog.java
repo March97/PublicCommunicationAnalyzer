@@ -1,65 +1,76 @@
 package com.example.publiccommunicationanalyzer;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.ArrayList;
 
-public class AddDayDialog extends Dialog implements android.view.View.OnClickListener {
+public class AddDayDialog extends AppCompatDialogFragment {
 
-    public Activity c;
-    public Dialog d;
-    public Button yes, no;
     public Spinner s;
-    public String line;
-    public String[] array;
-    public TextView title;
+    public ArrayList<String> daysList;
+    public int pos;
+    private AddDayDialogListener listener;
 
-    public AddDayDialog(Activity a, String line) {
-        super(a);
-
-        this.c = a;
-        this.line = line;
-        array = new String[] {"DP", "DS", "N7", "NO", "NP", "NS", "SB"};
+    public AddDayDialog(ArrayList<String> daysList) {
+        this.daysList = daysList;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.add_dialog);
-        title = (TextView) findViewById(R.id.add_dialog_title);
-        title.setText("Wybierz dzięń tygodnia dla linii nr " + line + ":");
-        yes = (Button) findViewById(R.id.btnContinueAddDialog);
-        no = (Button) findViewById(R.id.btnBackAddDialog);
-        s = (Spinner) findViewById(R.id.add_dialog_spinner);
-        s.setAdapter(new AddDaySpinnerAdapter(c, R.layout.item_line, array));
-        yes.setOnClickListener(this);
-        no.setOnClickListener(this);
-    }
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.layout_dialog, null);
 
-    @SuppressLint("NonConstantResourceId")
+        builder.setView(view)
+                .setTitle(R.string.dialog_day)
+                .setNegativeButton("wyjdź", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                })
+                .setPositiveButton("dalej", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String line = daysList.get(pos);
+                        listener.applyTextsDay(line);
+                    }
+                });
+        s = view.findViewById(R.id.dialog_spinner);
+        s.setAdapter(new AddDaySpinnerAdapter(getContext(), R.layout.item_day, daysList));
+        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                pos = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        return builder.create();
+    }
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnContinueAddDialog:
-                //c.finish();
-                AddServiceDialog addServiceDialog = new AddServiceDialog(c, "154");
-                addServiceDialog.show();
-                break;
-            case R.id.btnBackAddDialog:
-                dismiss();
-                break;
-            default:
-                break;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (AddDayDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() +
+                    "must implement ExampleDialogListener");
         }
-        dismiss();
+    }
+    public interface AddDayDialogListener {
+        void applyTextsDay(String day);
     }
 }
