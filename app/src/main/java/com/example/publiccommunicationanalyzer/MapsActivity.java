@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         AddServiceDialog.AddServiceDialogListener {
 
     private GoogleMap mMap;
-    private volatile Bundle controlBundle;
     private MapsViewModel mapsViewModel;
-    private ArrayList<Vertex> verticesList;
+
     private ArrayList<Edge> edgesList;
     private ArrayList<String> linesList;
     private ArrayList<String> daysList;
@@ -40,6 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String selectedService;
 
     private ArrayList<ArrayList<Edge>> graphEdges;
+    private ArrayList<ArrayList<Vertex>> verticesList;
     private ArrayList<Vertex> graphVertices;
 
     private Observer<List<String>> observerLinesList;
@@ -53,7 +54,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controlBundle = new Bundle();
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -64,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         listsReady = false;
 
         mapsViewModel = new ViewModelProvider(this).get(MapsViewModel.class);
-        verticesList = new ArrayList<Vertex>();
+        verticesList = new ArrayList<ArrayList<Vertex>>();
         edgesList = new ArrayList<Edge>();
 
         graphEdges = new ArrayList<ArrayList<Edge>>();
@@ -174,11 +174,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    private void setObserverGetVertex(int id) {
+    private void setObserverGetVertex(int id, int position) {
+
+        if(verticesList.size() <= position) {
+            verticesList.add(new ArrayList<Vertex>());
+        }
         mapsViewModel.getVertex(id).observe(this, observerGetVertex = new Observer<Vertex>() {
             @Override
             public void onChanged(Vertex vertex) {
-                verticesList.add(vertex);
+                verticesList.get(position).add(vertex);
                 mapsViewModel.getVertex(id).removeObserver(observerGetVertex);
             }
         });
@@ -230,10 +234,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         ArrayList<Integer> verticesId = new ArrayList<Integer>();
 
-        for(ArrayList<Edge> list : edgeList) {
-            for(Edge edge : list) {
+        for(int i = 0; i < edgeList.size(); i ++) {
+        //for(ArrayList<Edge> list : edgeList) {
+            PolylineOptions polylineOptions = new PolylineOptions();
+            for(Edge edge : edgeList.get(i)) {
+            //for(Edge edge : list) {
                 verticesId.add(edge.getV2());
-                setObserverGetVertex(edge.getV2());
+                setObserverGetVertex(edge.getV2(), i);
+//                polylineOptions.add(new LatLng(edge.ge))
 //                //Toast.makeText(MapsActivity.this, " " + edge.getV2(),
 //                        Toast.LENGTH_SHORT).show();
             }
@@ -246,16 +254,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public void drawVertices(ArrayList<Vertex> vertices, ArrayList<Marker> markers) {
+    public void drawVertices(ArrayList<ArrayList<Vertex>> vertices, ArrayList<Marker> markers) {
 
         removeMarkers(markers);
 
-        for(Vertex vertex : vertices) {
-            LatLng latLng = new LatLng(vertex.getY(), vertex.getX());
-            //markers.add(new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())));
-            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())).icon(BitmapDescriptorFactory.fromAsset("Yellow_dot_24.png"));
-            Marker marker = mMap.addMarker(markerOptions);
-            markers.add(marker);
+        for(ArrayList<Vertex> vertexList : vertices) {
+            for (Vertex vertex : vertexList) {
+                LatLng latLng = new LatLng(vertex.getY(), vertex.getX());
+                //markers.add(new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())));
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())).icon(BitmapDescriptorFactory.fromAsset("Yellow_dot_24.png"));
+                Marker marker = mMap.addMarker(markerOptions);
+                markers.add(marker);
+            }
         }
     }
+
+//    public void drawEdges(ArrayList<Marker> markers) {
+//        markers.
+//    }
 }
