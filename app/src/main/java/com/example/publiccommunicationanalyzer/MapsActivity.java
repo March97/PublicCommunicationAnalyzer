@@ -13,7 +13,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -37,10 +39,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String selectedDay;
     private String selectedService;
 
+    private ArrayList<ArrayList<Edge>> graphEdges;
+    private ArrayList<Vertex> graphVertices;
+
     private Observer<List<String>> observerLinesList;
     private Observer<List<String>> observerDaysList;
     private Observer<List<String>> observerServicesList;
     private Observer<List<Edge>> observerSelectedEdgesList;
+    private Observer<Vertex> observerGetVertex;
+
+    private ArrayList<Marker> markers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         verticesList = new ArrayList<Vertex>();
         edgesList = new ArrayList<Edge>();
 
+        graphEdges = new ArrayList<ArrayList<Edge>>();
+        graphVertices = new ArrayList<Vertex>();
+
+        markers = new ArrayList<Marker>();
+
         final Button btnDelete = findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,12 +79,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if(listsReady) {
 
-                    Toast.makeText(MapsActivity.this, "btnDelete",
-                            Toast.LENGTH_SHORT).show();
+                    setVertices(graphEdges);
+                    //Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
+                    drawVertices(verticesList, markers);
                 }
                 else {
-                    Toast.makeText(MapsActivity.this,
-                            "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -82,12 +95,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 if(listsReady) {
                     openAddLineDialog();
-                    Toast.makeText(MapsActivity.this, "btnAdd",
-                            Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MapsActivity.this, "btnAdd", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(MapsActivity.this,
-                            "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -113,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng warsaw = new LatLng(52.25, 21);
-        mMap.addMarker(new MarkerOptions().position(warsaw).title("Marker in Warsaw"));
+//        mMap.addMarker(new MarkerOptions().position(warsaw).title("Marker in Warsaw"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(warsaw));
         mMap.setMinZoomPreference(10.0f);
         mMap.setMaxZoomPreference(16.0f);
@@ -125,8 +136,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onChanged(List<String> strings) {
                 linesList = (ArrayList) strings;
                 listsReady = true;
-                Toast.makeText(MapsActivity.this, "onChanged Linie " +
-                        strings.size() + " " + linesList.size(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MapsActivity.this, "onChanged Linie " + strings.size() + " " + linesList.size(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -136,8 +146,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onChanged(List<String> strings) {
                 daysList = (ArrayList) strings;
-                Toast.makeText(MapsActivity.this, "onChanged dni " +
-                        strings.size() + " " + daysList.size(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MapsActivity.this, "onChanged dni " + strings.size() + " " + daysList.size(), Toast.LENGTH_SHORT).show();
                 openAddDayDialog();
             }
         });
@@ -148,8 +157,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onChanged(List<String> strings) {
                 servicesList = (ArrayList) strings;
-                Toast.makeText(MapsActivity.this, "onChanged kursy " +
-                        strings.size() + " " + servicesList.size(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MapsActivity.this, "onChanged kursy " + strings.size() + " " + servicesList.size(), Toast.LENGTH_SHORT).show();
                 openAddServiceDialog();
             }
         });
@@ -160,8 +168,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onChanged(List<Edge> edges) {
                 selectedEdgesList = (ArrayList) edges;
-                Toast.makeText(MapsActivity.this, "onChanged  wybrane łuki" +
-                        edges.size() + " " + selectedEdgesList.size(), Toast.LENGTH_SHORT).show();
+                graphEdges.add(selectedEdgesList);
+                //Toast.makeText(MapsActivity.this, "onChanged  wybrane łuki" + edges.size() + " " + selectedEdgesList.size() + " " + graphEdges.size(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setObserverGetVertex(int id) {
+        mapsViewModel.getVertex(id).observe(this, observerGetVertex = new Observer<Vertex>() {
+            @Override
+            public void onChanged(Vertex vertex) {
+                verticesList.add(vertex);
+                mapsViewModel.getVertex(id).removeObserver(observerGetVertex);
             }
         });
     }
@@ -174,8 +192,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void applyTextsLine(String line) {
         selectedLine = line;
-        Toast.makeText(MapsActivity.this, "selectedLine: " +
-                selectedLine, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MapsActivity.this, "selectedLine: " + selectedLine, Toast.LENGTH_SHORT).show();
 
         mapsViewModel.getDays(selectedLine).removeObserver(observerDaysList);
         setObserverDaysList();
@@ -189,8 +206,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void applyTextsDay(String day) {
         selectedDay = day;
-        Toast.makeText(MapsActivity.this, "selectedDay: " +
-                selectedDay, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MapsActivity.this, "selectedDay: " + selectedDay, Toast.LENGTH_SHORT).show();
 
         mapsViewModel.getServices(selectedLine, selectedDay).removeObserver(observerServicesList);
         setObserverServicesList();
@@ -204,10 +220,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void applyTextsService(String service) {
         selectedService = service;
-        Toast.makeText(MapsActivity.this, "selectedService: " + selectedService,
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MapsActivity.this, "selectedService: " + selectedService, Toast.LENGTH_SHORT).show();
 
         mapsViewModel.getSelectedEdges(selectedService).removeObserver(observerSelectedEdgesList);
         setObserverSelectedEdgesList();
+    }
+
+    private void setVertices(ArrayList<ArrayList<Edge>> edgeList) {
+
+        ArrayList<Integer> verticesId = new ArrayList<Integer>();
+
+        for(ArrayList<Edge> list : edgeList) {
+            for(Edge edge : list) {
+                verticesId.add(edge.getV2());
+                setObserverGetVertex(edge.getV2());
+//                //Toast.makeText(MapsActivity.this, " " + edge.getV2(),
+//                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void removeMarkers(ArrayList<Marker> markers) {
+        for(Marker marker : markers) {
+            marker.remove();
+        }
+    }
+
+    public void drawVertices(ArrayList<Vertex> vertices, ArrayList<Marker> markers) {
+
+        removeMarkers(markers);
+
+        for(Vertex vertex : vertices) {
+            LatLng latLng = new LatLng(vertex.getY(), vertex.getX());
+            //markers.add(new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())));
+            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())).icon(BitmapDescriptorFactory.fromAsset("Yellow_dot_24.png"));
+            Marker marker = mMap.addMarker(markerOptions);
+            markers.add(marker);
+        }
     }
 }

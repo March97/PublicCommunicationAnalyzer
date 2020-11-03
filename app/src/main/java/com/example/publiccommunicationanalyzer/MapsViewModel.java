@@ -19,6 +19,7 @@ public class MapsViewModel extends AndroidViewModel {
     private LiveData<List<String>> days;
     private LiveData<List<String>> services;
     private LiveData<List<Edge>> selectedEdges;
+    private LiveData<Vertex> vertex;
 
     public MapsViewModel(@NonNull Application application) {
         super(application);
@@ -82,5 +83,10 @@ public class MapsViewModel extends AndroidViewModel {
     public LiveData<List<Edge>> getSelectedEdges(String service) {
         selectedEdges = edgeRepository.getSelectedEdges(service);
         return selectedEdges;
+    }
+
+    public LiveData<Vertex> getVertex(int id) {
+        vertex = vertexRepository.getVertex(id);
+        return vertex;
     }
 }

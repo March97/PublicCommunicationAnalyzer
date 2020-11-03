@@ -11,6 +11,7 @@ public class VertexRepository {
 
     private VertexDao vertexDao;
     private LiveData<List<Vertex>> listVertex;
+    private LiveData<Vertex> vertex;
 
     public VertexRepository(Application application) {
         GraphDatabase db = GraphDatabase.getInstance(application);
@@ -36,6 +37,11 @@ public class VertexRepository {
 
     public LiveData<List<Vertex>> getListVertex() {
         return listVertex;
+    }
+
+    public LiveData<Vertex> getVertex(int id) {
+        vertex = vertexDao.getVertex(id);
+        return vertex;
     }
 
     private static class InsertVertexAsyncTask extends AsyncTask<Vertex, Void, Void> {

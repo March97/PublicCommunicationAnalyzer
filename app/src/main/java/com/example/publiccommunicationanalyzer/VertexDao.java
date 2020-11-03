@@ -26,4 +26,7 @@ public interface VertexDao {
 
     @Query("SELECT * FROM vertex_table")
     LiveData<List<Vertex>> getAll();
+
+    @Query("SELECT * FROM vertex_table WHERE id LIKE :id")
+    LiveData<Vertex> getVertex(int id);
 }
