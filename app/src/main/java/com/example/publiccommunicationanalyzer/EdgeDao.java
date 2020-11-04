@@ -37,6 +37,6 @@ public interface EdgeDao {
     @Query("SELECT service FROM edge_table WHERE line LIKE :line AND day LIKE :day GROUP BY service")
     LiveData<List<String>> getServiceByLineDay(String line, String day);
 
-    @Query("SELECT * FROM edge_table WHERE service LIKE :service")
+    @Query("SELECT * FROM edge_table WHERE service LIKE :service ORDER BY time_from_start")
     LiveData<List<Edge>> getEdgesByService(String service);
 }
