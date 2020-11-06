@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class VertexRepository {
 
@@ -39,9 +40,23 @@ public class VertexRepository {
         return listVertex;
     }
 
-    public LiveData<Vertex> getVertex(int id) {
-        vertex = vertexDao.getVertex(id);
-        return vertex;
+    public LiveData<Vertex> getVertex(int id) throws ExecutionException, InterruptedException {
+//        vertex = vertexDao.getVertex(id);
+//        return vertex;
+        return new VertexRepository.GetVertexAsyncTask(vertexDao).execute(id).get();
+    }
+
+    private static class GetVertexAsyncTask extends AsyncTask<Integer, Void, LiveData<Vertex>> {
+
+        private VertexDao vertexDao;
+        private GetVertexAsyncTask(VertexDao vertexDao) {
+            this.vertexDao = vertexDao;
+        }
+
+        @Override
+        protected LiveData<Vertex> doInBackground(Integer... integers) {
+            return vertexDao.getVertex(integers[0]);
+        }
     }
 
     private static class InsertVertexAsyncTask extends AsyncTask<Vertex, Void, Void> {

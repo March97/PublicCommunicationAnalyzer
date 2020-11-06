@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class AddLineDialog extends AppCompatDialogFragment {
 
@@ -42,7 +43,13 @@ public class AddLineDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String line = linesList.get(pos);
-                        listener.applyTextsLine(line);
+                        try {
+                            listener.applyTextsLine(line);
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
         s = view.findViewById(R.id.dialog_spinner);
@@ -71,6 +78,6 @@ public class AddLineDialog extends AppCompatDialogFragment {
         }
     }
     public interface AddLineDialogListener {
-        void applyTextsLine(String line);
+        void applyTextsLine(String line) throws ExecutionException, InterruptedException;
     }
 }

@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class AddServiceDialog extends AppCompatDialogFragment {
 
@@ -42,7 +43,13 @@ public class AddServiceDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String line = servicesList.get(pos);
-                        listener.applyTextsService(line);
+                        try {
+                            listener.applyTextsService(line);
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
         s = view.findViewById(R.id.dialog_spinner);
@@ -71,6 +78,6 @@ public class AddServiceDialog extends AppCompatDialogFragment {
         }
     }
     public interface AddServiceDialogListener {
-        void applyTextsService(String service);
+        void applyTextsService(String service) throws ExecutionException, InterruptedException;
     }
 }

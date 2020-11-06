@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         AddLineDialog.AddLineDialogListener, AddDayDialog.AddDayDialogListener,
@@ -84,12 +85,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                if(listsReady) {
+                if (listsReady) {
 //                    Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
                     //setVertices(graphEdges);
                     graphDrawer.drawGraph(mMap, graphEdges, verticesList, markers, polylines);
-                }
-                else {
+                } else {
                     Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -99,19 +99,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listsReady) {
+                if (listsReady) {
                     openAddLineDialog();
 
                     //Toast.makeText(MapsActivity.this, "btnAdd", Toast.LENGTH_SHORT).show();
 
-                }
-                else {
+                } else {
                     Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        setObserverLinesList();
+        try {
+            setObserverLinesList();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //setObserverDaysList();
         //setObserverServicesList();
         //setObserverSelectedEdgesList();
@@ -138,7 +143,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMaxZoomPreference(16.0f);
     }
 
-    private void setObserverLinesList() {
+    private void setObserverLinesList() throws ExecutionException, InterruptedException {
         mapsViewModel.getLines().observe(this, observerLinesList = new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
@@ -149,7 +154,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    private void setObserverDaysList() {
+    private void setObserverDaysList() throws ExecutionException, InterruptedException {
         mapsViewModel.getDays(selectedLine).observe(this, observerDaysList = new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
@@ -160,7 +165,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    private void setObserverServicesList() {
+    private void setObserverServicesList() throws ExecutionException, InterruptedException {
         mapsViewModel.getServices(selectedLine, selectedDay).observe(this, observerServicesList = new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
@@ -171,28 +176,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    private void setObserverSelectedEdgesList() {
+    private void setObserverSelectedEdgesList() throws ExecutionException, InterruptedException {
         mapsViewModel.getSelectedEdges(selectedService).observe(this, observerSelectedEdgesList = new Observer<List<Edge>>() {
             @Override
             public void onChanged(List<Edge> edges) {
                 selectedEdgesList = (ArrayList) edges;
                 graphEdges.add(selectedEdgesList);
                 //Toast.makeText(MapsActivity.this, "onChanged  wybrane łuki" + edges.size() + " " + selectedEdgesList.size() + " " + graphEdges.size(), Toast.LENGTH_SHORT).show();
-                setVertices(graphEdges);
+                try {
+                    setVertices(graphEdges);
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    private void setObserverGetVertex(int id, int position) {
+    private void setObserverGetVertex(int id, int position) throws ExecutionException, InterruptedException {
 
-        if(verticesList.size() <= position) {
+        if (verticesList.size() <= position) {
             verticesList.add(new ArrayList<Vertex>());
         }
         mapsViewModel.getVertex(id).observe(this, observerGetVertex = new Observer<Vertex>() {
             @Override
             public void onChanged(Vertex vertex) {
                 verticesList.get(position).add(vertex);
-                mapsViewModel.getVertex(id).removeObserver(observerGetVertex);
+                try {
+                    mapsViewModel.getVertex(id).removeObserver(observerGetVertex);
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -203,7 +220,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void applyTextsLine(String line) {
+    public void applyTextsLine(String line) throws ExecutionException, InterruptedException {
         selectedLine = line;
         //Toast.makeText(MapsActivity.this, "selectedLine: " + selectedLine, Toast.LENGTH_SHORT).show();
 
@@ -217,7 +234,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void applyTextsDay(String day) {
+    public void applyTextsDay(String day) throws ExecutionException, InterruptedException {
         selectedDay = day;
         //Toast.makeText(MapsActivity.this, "selectedDay: " + selectedDay, Toast.LENGTH_SHORT).show();
 
@@ -231,7 +248,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void applyTextsService(String service) {
+    public void applyTextsService(String service) throws ExecutionException, InterruptedException {
         selectedService = service;
         //Toast.makeText(MapsActivity.this, "selectedService: " + selectedService, Toast.LENGTH_SHORT).show();
 
@@ -239,12 +256,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setObserverSelectedEdgesList();
     }
 
-    private void setVertices(ArrayList<ArrayList<Edge>> edgeList) {
+    private void setVertices(ArrayList<ArrayList<Edge>> edgeList) throws ExecutionException, InterruptedException {
 
         ArrayList<Integer> verticesId = new ArrayList<Integer>();
-
-        for(int i = 0; i < edgeList.size(); i++) {
-            for(Edge edge : edgeList.get(i)) {
+        for (int i = 0; i < edgeList.size(); i++) {
+            for (Edge edge : edgeList.get(i)) {
                 verticesId.add(edge.getV2());
                 setObserverGetVertex(edge.getV2(), i);
             }

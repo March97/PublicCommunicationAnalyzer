@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MapsViewModel extends AndroidViewModel {
 
@@ -21,7 +22,7 @@ public class MapsViewModel extends AndroidViewModel {
     private LiveData<List<Edge>> selectedEdges;
     private LiveData<Vertex> vertex;
 
-    public MapsViewModel(@NonNull Application application) {
+    public MapsViewModel(@NonNull Application application) throws ExecutionException, InterruptedException {
         super(application);
 
         vertexRepository = new VertexRepository(application);
@@ -66,26 +67,26 @@ public class MapsViewModel extends AndroidViewModel {
     public LiveData<List<Edge>> getAllEdge() {
         return edges;
     }
-    public LiveData<List<String>> getLines() {
-        return lines;
+    public LiveData<List<String>> getLines() throws ExecutionException, InterruptedException {
+        return edgeRepository.getLines();
     }
 
-    public LiveData<List<String>> getDays(String line) {
+    public LiveData<List<String>> getDays(String line) throws ExecutionException, InterruptedException {
         days = edgeRepository.getDays(line);
         return days;
     }
 
-    public LiveData<List<String>> getServices(String line, String day) {
+    public LiveData<List<String>> getServices(String line, String day) throws ExecutionException, InterruptedException {
         services = edgeRepository.getServices(line, day);
         return services;
     }
 
-    public LiveData<List<Edge>> getSelectedEdges(String service) {
+    public LiveData<List<Edge>> getSelectedEdges(String service) throws ExecutionException, InterruptedException {
         selectedEdges = edgeRepository.getSelectedEdges(service);
         return selectedEdges;
     }
 
-    public LiveData<Vertex> getVertex(int id) {
+    public LiveData<Vertex> getVertex(int id) throws ExecutionException, InterruptedException {
         vertex = vertexRepository.getVertex(id);
         return vertex;
     }
