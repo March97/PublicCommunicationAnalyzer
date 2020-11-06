@@ -53,6 +53,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<Marker> markers;
     private ArrayList<Polyline> polylines;
 
+    private GraphDrawer graphDrawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,20 +77,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markers = new ArrayList<Marker>();
         polylines = new ArrayList<Polyline>();
 
+        graphDrawer = new GraphDrawer();
+
         final Button btnDelete = findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(listsReady) {
-
-                    setVertices(graphEdges);
-                    //Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
-                    drawVertices(verticesList, markers);
-                    drawEdges(graphEdges, verticesList, polylines);
+//                    Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
+                    //setVertices(graphEdges);
+                    graphDrawer.drawGraph(mMap, graphEdges, verticesList, markers, polylines);
                 }
                 else {
-                    //Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -99,10 +101,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 if(listsReady) {
                     openAddLineDialog();
+
                     //Toast.makeText(MapsActivity.this, "btnAdd", Toast.LENGTH_SHORT).show();
+
                 }
                 else {
-                    //Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -174,6 +178,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 selectedEdgesList = (ArrayList) edges;
                 graphEdges.add(selectedEdgesList);
                 //Toast.makeText(MapsActivity.this, "onChanged  wybrane łuki" + edges.size() + " " + selectedEdgesList.size() + " " + graphEdges.size(), Toast.LENGTH_SHORT).show();
+                setVertices(graphEdges);
             }
         });
     }
@@ -239,79 +244,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ArrayList<Integer> verticesId = new ArrayList<Integer>();
 
         for(int i = 0; i < edgeList.size(); i++) {
-            //for(ArrayList<Edge> list : edgeList) {
-            //PolylineOptions polylineOptions = new PolylineOptions();
             for(Edge edge : edgeList.get(i)) {
-                //for(Edge edge : list) {
                 verticesId.add(edge.getV2());
                 setObserverGetVertex(edge.getV2(), i);
-//                polylineOptions.add(new LatLng(edge.ge))
-//                //Toast.makeText(MapsActivity.this, " " + edge.getV2(),
-//                        Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    public void removeMarkers(ArrayList<Marker> markers) {
-        for(Marker marker : markers) {
-            marker.remove();
-        }
-        markers.clear();
-    }
-
-    public void drawVertices(ArrayList<ArrayList<Vertex>> vertices, ArrayList<Marker> markers) {
-
-        removeMarkers(markers);
-
-        for(ArrayList<Vertex> vertexList : vertices) {
-            for (Vertex vertex : vertexList) {
-                LatLng latLng = new LatLng(vertex.getY(), vertex.getX());
-                //markers.add(new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())));
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())).icon(BitmapDescriptorFactory.fromAsset("Yellow_dot_24.png"));
-                Marker marker = mMap.addMarker(markerOptions);
-                markers.add(marker);
-            }
-        }
-    }
-
-    public void removePolylines(ArrayList<Polyline> polylines) {
-        for(Polyline polyline : polylines) {
-            polyline.remove();
-        }
-        polylines.clear();
-    }
-
-    private void drawEdges(ArrayList<ArrayList<Edge>> edgeList, ArrayList<ArrayList<Vertex>> vertices, ArrayList<Polyline> polylines) {
-
-        removePolylines(polylines);
-        ArrayList<Integer[]> vLists = new ArrayList<Integer[]>();
-
-        for(int i = 0; i < edgeList.size(); i++) {
-            for(int j = 0; j < edgeList.get(i).size() - 1; j++) {
-                vLists.add(new Integer[] { edgeList.get(i).get(j).getV2(), edgeList.get(i).get(j + 1).getV2()});
-            }
-        }
-
-        for(int i = 0; i < vLists.size(); i++) {
-            PolylineOptions polylineOptions = new PolylineOptions();
-            for(int j = 0; j < vLists.get(i).length; j++) {
-                for(ArrayList<Vertex> vertexList : vertices) {
-                    for (Vertex vertex : vertexList) {
-                        if(vertex.getId() == vLists.get(i)[j]) {
-                            LatLng latLng = new LatLng(vertex.getY(), vertex.getX());
-                            polylineOptions.add(latLng);
-                        }
-                    }
-                }
-            }
-            Polyline polyline = mMap.addPolyline(polylineOptions);
-            polylines.add(polyline);
-        }
-
-        System.out.println("VLists size:");
-        System.out.println(vLists.size());
-
-        System.out.println("polyline size:");
-        System.out.println(polylines.size());
     }
 }
