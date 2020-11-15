@@ -16,7 +16,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:weightSum="2">
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/btnDraw"
+            android:background="@drawable/layout_bg"
+            android:layout_margin="@dimen/margin_xlarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rysuj graf"
+            android:textColor="@color/blue"
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/btnDelete"

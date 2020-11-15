@@ -31,7 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private MapsViewModel mapsViewModel;
 
-    private ArrayList<Edge> edgesList;
+    //private ArrayList<Edge> edgesList;
     private ArrayList<String> linesList;
     private ArrayList<String> daysList;
     private ArrayList<String> servicesList;
@@ -42,8 +42,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String selectedService;
 
     private ArrayList<ArrayList<Edge>> graphEdges;
-    private ArrayList<ArrayList<Vertex>> verticesList;
-    private ArrayList<Vertex> graphVertices;
+    private ArrayList<ArrayList<Vertex>> graphVertices;
+//    private ArrayList<Vertex> graphVertices;
 
     private Observer<List<String>> observerLinesList;
     private Observer<List<String>> observerDaysList;
@@ -69,16 +69,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         listsReady = false;
 
         mapsViewModel = new ViewModelProvider(this).get(MapsViewModel.class);
-        verticesList = new ArrayList<ArrayList<Vertex>>();
-        edgesList = new ArrayList<Edge>();
+
+        //edgesList = new ArrayList<Edge>();
 
         graphEdges = new ArrayList<ArrayList<Edge>>();
-        graphVertices = new ArrayList<Vertex>();
+        graphVertices = new ArrayList<ArrayList<Vertex>>();
 
         markers = new ArrayList<Marker>();
         polylines = new ArrayList<Polyline>();
 
         graphDrawer = new GraphDrawer();
+
+        final Button btnDraw = findViewById(R.id.btnDraw);
+        btnDraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (listsReady) {
+//                    Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
+                    //setVertices(graphEdges);
+                    graphDrawer.drawGraph(mMap, graphEdges, graphVertices, markers, polylines);
+                    Toast.makeText(MapsActivity.this, "Rysuję graf", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         final Button btnDelete = findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -86,9 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
 
                 if (listsReady) {
-//                    Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
-                    //setVertices(graphEdges);
-                    graphDrawer.drawGraph(mMap, graphEdges, verticesList, markers, polylines);
+                    openInfoDialog();
                 } else {
                     Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
@@ -196,13 +210,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void setObserverGetVertex(int id, int position) throws ExecutionException, InterruptedException {
 
-        if (verticesList.size() <= position) {
-            verticesList.add(new ArrayList<Vertex>());
+        if (graphVertices.size() <= position) {
+            graphVertices.add(new ArrayList<Vertex>());
         }
         mapsViewModel.getVertex(id).observe(this, observerGetVertex = new Observer<Vertex>() {
             @Override
             public void onChanged(Vertex vertex) {
-                verticesList.get(position).add(vertex);
+                graphVertices.get(position).add(vertex);
                 try {
                     mapsViewModel.getVertex(id).removeObserver(observerGetVertex);
                 } catch (ExecutionException e) {
@@ -254,6 +268,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapsViewModel.getSelectedEdges(selectedService).removeObserver(observerSelectedEdgesList);
         setObserverSelectedEdgesList();
+    }
+
+    public void openInfoDialog() {
+        InfoDialog infoDialog = new InfoDialog(graphVertices, graphEdges);
+        infoDialog.show(getSupportFragmentManager(), "add line dialog");
     }
 
     private void setVertices(ArrayList<ArrayList<Edge>> edgeList) throws ExecutionException, InterruptedException {

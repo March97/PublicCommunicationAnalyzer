@@ -11,4 +11,5 @@
     <color name="colorFont">#808080</color>
     <color name="green">#FF32CD32</color>
     <color name="red">#FFFF0000</color>
+    <color name="blue">#FF00BBFF</color>
 </resources>
