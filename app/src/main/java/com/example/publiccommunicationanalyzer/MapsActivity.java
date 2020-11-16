@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -80,6 +81,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         graphDrawer = new GraphDrawer();
 
+        final ImageButton btnInfo = findViewById(R.id.btnInfo);
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openInfoDialog();
+            }
+        });
+
         final Button btnDraw = findViewById(R.id.btnDraw);
         btnDraw.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +98,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
                     //setVertices(graphEdges);
                     graphDrawer.drawGraph(mMap, graphEdges, graphVertices, markers, polylines);
+                    if(!markers.isEmpty())
+                        btnInfo.setVisibility(View.VISIBLE);
                     Toast.makeText(MapsActivity.this, "Rysuję graf", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
@@ -104,6 +115,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (listsReady) {
 //                    openInfoDialog();
                     graphDrawer.deleteGraph(mMap, graphVertices, graphEdges, markers, polylines);
+                    if(markers.isEmpty())
+                        btnInfo.setVisibility(View.INVISIBLE);
                 } else {
                     Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
