@@ -102,7 +102,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
 
                 if (listsReady) {
-                    openInfoDialog();
+//                    openInfoDialog();
+                    graphDrawer.deleteGraph(mMap, graphVertices, graphEdges, markers, polylines);
                 } else {
                     Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }

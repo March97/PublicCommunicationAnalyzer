@@ -47,8 +47,9 @@ public class GraphDrawer {
         ArrayList<Integer[]> vLists = new ArrayList<Integer[]>();
 
         for(int i = 0; i < edgeList.size(); i++) {
-            for(int j = 0; j < edgeList.get(i).size() - 1; j++) {
-                vLists.add(new Integer[] { edgeList.get(i).get(j).getV2(), edgeList.get(i).get(j + 1).getV2()});
+            for(int j = 0; j < edgeList.get(i).size(); j++) {
+                if(edgeList.get(i).get(j).getV1() != 0)
+                    vLists.add(new Integer[] { edgeList.get(i).get(j).getV1(), edgeList.get(i).get(j).getV2()});
             }
         }
 
@@ -78,5 +79,13 @@ public class GraphDrawer {
     public void drawGraph(GoogleMap mMap, ArrayList<ArrayList<Edge>> edgeList, ArrayList<ArrayList<Vertex>> vertice, ArrayList<Marker> markers, ArrayList<Polyline> polylines) {
         drawVertices(mMap, vertice, markers);
         drawEdges(mMap, edgeList, vertice, polylines);
+    }
+
+    public void deleteGraph(GoogleMap mMap, ArrayList<ArrayList<Vertex>> vertice, ArrayList<ArrayList<Edge>> edgeList, ArrayList<Marker> markers, ArrayList<Polyline> polylines) {
+        mMap.clear();
+        removeMarkers(markers);
+        removePolylines(polylines);
+        vertice.clear();
+        edgeList.clear();;
     }
 }
