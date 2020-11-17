@@ -27,17 +27,13 @@ public class JGraph {
 
     private void addEdges(ArrayList<ArrayList<Vertex>> vertices, ArrayList<ArrayList<Edge>> edges) {
         for (int j = 0; j < vertices.size(); j++) {
-            for (int i = 0; i < vertices.get(j).size(); i++) {
-                if ( i < edges.size()) {
-                    for (int k = 0; k < edges.get(i).size(); k++) {
-                        if (edges.get(i).get(k).getV1() != 0) {
-                            Edge edge = new Edge(edges.get(i).get(k));
-                            graphTime.addEdge(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()));
-                            graphTime.setEdgeWeight(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()), edge.getTime_from_last());
-                            graphDistance.addEdge(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()));
-                            graphDistance.setEdgeWeight(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()), edge.getDistance());
-                        }
-                    }
+            for (int k = 0; k < edges.get(j).size(); k++) {
+                Edge edge = new Edge(edges.get(j).get(k));
+                if (edge.getV1() != 0) {
+                    graphTime.addEdge(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()));
+                    graphTime.setEdgeWeight(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()), edge.getTime_from_last());
+                    graphDistance.addEdge(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()));
+                    graphDistance.setEdgeWeight(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()), edge.getDistance());
                 }
             }
         }
@@ -52,14 +48,14 @@ public class JGraph {
     public void printEdges() {
         System.out.println("GRAPH DISTANCE:");
         int i = 0;
-        for(DefaultWeightedEdge e : graphDistance.edgeSet()){
+        for (DefaultWeightedEdge e : graphDistance.edgeSet()) {
             i++;
             System.out.println(i + ". " + graphDistance.getEdgeSource(e) + " --> " + graphDistance.getEdgeTarget(e) + " " + graphDistance.getEdgeWeight(e));
         }
 
         i = 0;
         System.out.println("GRAPH:");
-        for(DefaultWeightedEdge e : graphTime.edgeSet()){
+        for (DefaultWeightedEdge e : graphTime.edgeSet()) {
             i++;
             System.out.println(i + ". " + graphTime.getEdgeSource(e) + " --> " + graphTime.getEdgeTarget(e) + " " + graphTime.getEdgeWeight(e));
         }
