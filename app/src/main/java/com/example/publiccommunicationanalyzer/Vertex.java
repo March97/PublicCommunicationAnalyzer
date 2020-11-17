@@ -7,9 +7,10 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "vertex_table")
 public class Vertex {
 
-    @PrimaryKey(autoGenerate = true)
-    private int rowId;
+//    @PrimaryKey(autoGenerate = true)
+//    private int rowId;
     private String address = "";
+    @PrimaryKey
     private int id = 0;
     private Double y = 0.0;
     private Double x =0.0;
@@ -21,13 +22,13 @@ public class Vertex {
         this.x = x;
     }
 
-    public int getRowId() {
-        return rowId;
-    }
-
-    public void setRowId(int rowId) {
-        this.rowId = rowId;
-    }
+//    public int getRowId() {
+//        return rowId;
+//    }
+//
+//    public void setRowId(int rowId) {
+//        this.rowId = rowId;
+//    }
 
     public int getId() {
         return id;

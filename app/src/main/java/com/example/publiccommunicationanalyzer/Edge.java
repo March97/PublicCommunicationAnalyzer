@@ -19,9 +19,10 @@ public class Edge {
     private String end = "";
     private int time_from_start = 0;
     private int time_from_last = 0;
+    private int distance = 0;
 
     public Edge(String service, int v1, int v2, String line, String route, String day, String start,
-                String end, int time_from_start, int time_from_last) {
+                String end, int time_from_start, int time_from_last, int distance) {
         this.service = service;
         this.v1 = v1;
         this.v2 = v2;
@@ -32,6 +33,7 @@ public class Edge {
         this.end = end;
         this.time_from_start = time_from_start;
         this.time_from_last = time_from_last;
+        this.distance = distance;
     }
 
     public int getRowId() {
@@ -120,5 +122,13 @@ public class Edge {
 
     public void setTime_from_last(int time_from_last) {
         this.time_from_last = time_from_last;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 }

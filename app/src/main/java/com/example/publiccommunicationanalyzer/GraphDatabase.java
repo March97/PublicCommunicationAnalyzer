@@ -24,6 +24,7 @@ public abstract class GraphDatabase extends RoomDatabase {
 //                    .fallbackToDestructiveMigration()
 //                    .addCallback(roomCallback)
 //                    .build();
+
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     GraphDatabase.class, "graph_database")
                     .createFromAsset("graph_database.db")
