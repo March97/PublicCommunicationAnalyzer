@@ -56,6 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<Polyline> polylines;
 
     private GraphDrawer graphDrawer;
+    private JGraph jGraph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         polylines = new ArrayList<Polyline>();
 
         graphDrawer = new GraphDrawer();
+        jGraph = new JGraph();
 
         final ImageButton btnInfo = findViewById(R.id.btnInfo);
         btnInfo.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +102,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     graphDrawer.drawGraph(mMap, graphEdges, graphVertices, markers, polylines);
                     if(!markers.isEmpty())
                         btnInfo.setVisibility(View.VISIBLE);
+
+                    jGraph.setGraph(graphVertices, graphEdges);
+                    jGraph.printEdges();
                     Toast.makeText(MapsActivity.this, "Rysuję graf", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
@@ -115,6 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (listsReady) {
 //                    openInfoDialog();
                     graphDrawer.deleteGraph(mMap, graphVertices, graphEdges, markers, polylines);
+                    jGraph.clearGraph();
                     if(markers.isEmpty())
                         btnInfo.setVisibility(View.INVISIBLE);
                 } else {

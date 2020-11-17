@@ -36,6 +36,21 @@ public class Edge {
         this.distance = distance;
     }
 
+    public Edge(Edge edge) {
+        this.rowId = edge.getRowId();
+        this.service = edge.getService();
+        this.v1 = edge.getV1();
+        this.v2 = edge.getV2();
+        this.line = edge.getLine();
+        this.route = edge.getRoute();
+        this.day = edge.getDay();
+        this.start = edge.getStart();
+        this.end = edge.getEnd();
+        this.time_from_start = edge.getTime_from_start();
+        this.time_from_last = edge.time_from_last;
+        this.distance = edge.getDistance();
+    }
+
     public int getRowId() {
         return rowId;
     }
