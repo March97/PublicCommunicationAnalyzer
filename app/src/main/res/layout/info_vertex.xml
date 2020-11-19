@@ -13,6 +13,31 @@
         android:textStyle="bold"
         android:maxLines="1" />
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:text="Stopień wierzchołka: "
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/tvDegreeTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:text="1"
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
+
+    </LinearLayout>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,13 +57,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
-                android:text="Stopień: "
-                android:textSize="@dimen/font_medium"
-                android:maxLines="1" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,6 +83,14 @@
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:text="Wektory własne: "
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
+
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -71,14 +98,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvDegreeTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
-                android:text="1"
-                android:textSize="@dimen/font_medium"
-                android:maxLines="1" />
+
 
             <TextView
                 android:id="@+id/tvCloseTime"
@@ -100,6 +120,15 @@
 
             <TextView
                 android:id="@+id/tvHarmonyTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:text="4"
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/tvPageRankTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
@@ -133,14 +162,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Stopień: "
-                android:textSize="@dimen/font_medium"
-                android:maxLines="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
                 android:text="Bliskość: "
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
@@ -161,21 +182,19 @@
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:text="Wektory własne: "
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvDegreeDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
-                android:text="1"
-                android:textSize="@dimen/font_medium"
-                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tvCloseDistance"
@@ -197,6 +216,15 @@
 
             <TextView
                 android:id="@+id/tvHarmonyDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:text="4"
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/tvPageRankDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"

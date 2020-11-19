@@ -35,6 +35,9 @@ public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
     //Harmonic
     private Double hT;
     private Double hD;
+    //wektory wlasne
+    private Double prT;
+    private Double prD;
 
     private final JGraph jGraph = new JGraph();
 
@@ -54,16 +57,13 @@ public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
         TextView dt = (TextView) view.findViewById(R.id.tvDegreeTime);
         dt.setText(String.valueOf(jGraph.graphTime.degreeOf(marker.getTitle())));
 
-        TextView dd = (TextView) view.findViewById(R.id.tvDegreeDistance);
-        dd.setText(String.valueOf(jGraph.graphDistance.degreeOf(marker.getTitle())));
-
         TextView cTt = (TextView) view.findViewById(R.id.tvCloseTime);
         cT = jGraph.getcT().getVertexScore(marker.getTitle());
-        cTt.setText(String.valueOf(cT));
+        cTt.setText(String.format("%.6f", cT));
 
         TextView cDt = (TextView) view.findViewById(R.id.tvCloseDistance);
         cD = jGraph.getcD().getVertexScore(marker.getTitle());
-        cDt.setText(String.valueOf(cD));
+        cDt.setText(String.format("%.6f", cD));
 
         TextView bTt = (TextView) view.findViewById(R.id.tvBetweenTime);
         bT = jGraph.getbT().getVertexScore(marker.getTitle());
@@ -75,11 +75,19 @@ public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
 
         TextView hTt = (TextView) view.findViewById(R.id.tvHarmonyTime);
         hT = jGraph.gethT().getVertexScore(marker.getTitle());
-        hTt.setText(String.valueOf(hT));
+        hTt.setText(String.format("%.6f", hT));
 
         TextView hDt = (TextView) view.findViewById(R.id.tvHarmonyDistance);
         hD = jGraph.gethD().getVertexScore(marker.getTitle());
-        hDt.setText(String.valueOf(hD));
+        hDt.setText(String.format("%.6f", hD));
+
+        TextView prTt = (TextView) view.findViewById(R.id.tvPageRankTime);
+        prT = jGraph.getPrT().getVertexScore(marker.getTitle());
+        prTt.setText(String.format("%.6f", prT));
+
+        TextView prDt = (TextView) view.findViewById(R.id.tvPageRankDistance);
+        prD = jGraph.getPrD().getVertexScore(marker.getTitle());
+        prDt.setText(String.format("%.6f", prD));
 
         return view;
     }

@@ -4,6 +4,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.alg.scoring.BetweennessCentrality;
 import org.jgrapht.alg.scoring.ClosenessCentrality;
 import org.jgrapht.alg.scoring.HarmonicCentrality;
+import org.jgrapht.alg.scoring.PageRank;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -28,6 +29,9 @@ public class JGraph {
     HarmonicCentrality<String, DefaultWeightedEdge> hT;
     HarmonicCentrality<String, DefaultWeightedEdge> hD;
 
+    PageRank<String, DefaultWeightedEdge> prT;
+    PageRank<String, DefaultWeightedEdge> prD;
+
     public ClosenessCentrality<String, DefaultWeightedEdge> getcT() {
         return cT;
     }
@@ -50,6 +54,14 @@ public class JGraph {
 
     public HarmonicCentrality<String, DefaultWeightedEdge> gethD() {
         return hD;
+    }
+
+    public PageRank<String, DefaultWeightedEdge> getPrT() {
+        return prT;
+    }
+
+    public PageRank<String, DefaultWeightedEdge> getPrD() {
+        return prD;
     }
 
     private void addVertices(ArrayList<ArrayList<Vertex>> vertices) {
@@ -96,6 +108,9 @@ public class JGraph {
         //Harmonic
         hT = new HarmonicCentrality<>(graphTime);
         hD = new HarmonicCentrality<>(graphDistance);
+
+        prT = new PageRank<>(graphTime);
+        prD = new PageRank<>(graphDistance);
     }
 
     public void printEdges() {
