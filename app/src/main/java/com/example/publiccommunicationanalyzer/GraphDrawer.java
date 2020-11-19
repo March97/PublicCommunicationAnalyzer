@@ -48,7 +48,7 @@ public class GraphDrawer {
 
         for(int i = 0; i < edgeList.size(); i++) {
             for(int j = 0; j < edgeList.get(i).size(); j++) {
-                if(edgeList.get(i).get(j).getV1() != 0)
+                if(edgeList.get(i).get(j).getV1() != 0 && edgeList.get(i).get(j).getV1() != edgeList.get(i).get(j).getV2() )
                     vLists.add(new Integer[] { edgeList.get(i).get(j).getV1(), edgeList.get(i).get(j).getV2()});
             }
         }
