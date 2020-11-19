@@ -1,7 +1,9 @@
 package com.example.publiccommunicationanalyzer;
 
 import org.jgrapht.Graph;
-import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.alg.scoring.ClosenessCentrality;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultUndirectedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedMultigraph;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
@@ -12,6 +14,8 @@ public class JGraph {
 
     DirectedWeightedMultigraph<String, DefaultWeightedEdge> graphTime = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
     DirectedWeightedMultigraph<String, DefaultWeightedEdge> graphDistance = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+
+    Graph<String, DefaultEdge> graph = new DefaultUndirectedGraph<String, DefaultEdge>(DefaultEdge.class);
 
     private void addVertices(ArrayList<ArrayList<Vertex>> vertices) {
         for (ArrayList<Vertex> vertexList : vertices) {
@@ -55,9 +59,11 @@ public class JGraph {
 
         i = 0;
         System.out.println("GRAPH:");
+        ClosenessCentrality<String, DefaultWeightedEdge> c = new ClosenessCentrality<>(graphTime);
         for (DefaultWeightedEdge e : graphTime.edgeSet()) {
             i++;
             System.out.println(i + ". " + graphTime.getEdgeSource(e) + " --> " + graphTime.getEdgeTarget(e) + " " + graphTime.getEdgeWeight(e));
+            System.out.println("Stopien: " + graphTime.inDegreeOf(graphTime.getEdgeSource(e)) + " Bliskość: " + c.getVertexScore(graphTime.getEdgeSource(e))) ;
         }
     }
 
@@ -65,5 +71,4 @@ public class JGraph {
         graphTime = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
         graphDistance = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
     }
-
 }
