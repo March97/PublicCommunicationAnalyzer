@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class GraphDrawer {
 
+
+
     private void removeMarkers(ArrayList<Marker> markers) {
         for(Marker marker : markers) {
             marker.remove();
@@ -27,7 +29,14 @@ public class GraphDrawer {
             for (Vertex vertex : vertexList) {
                 LatLng latLng = new LatLng(vertex.getY(), vertex.getX());
                 //markers.add(new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())));
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId())).icon(BitmapDescriptorFactory.fromAsset("Yellow_dot.png"));
+
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(String.valueOf(vertex.getId()))
+                        .icon(BitmapDescriptorFactory.fromAsset("Yellow_dot.png"));
+
+//                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(
+//                        "ID: " + String.valueOf(vertex.getId()))
+//                        .icon(BitmapDescriptorFactory.fromAsset("Yellow_dot.png"))
+//                        .snippet("Czas:\n Pośrednictwo: " + jGraph.getbT().getVertexScore(String.valueOf(vertex.getId())));
                 Marker marker = mMap.addMarker(markerOptions);
                 markers.add(marker);
             }
@@ -76,9 +85,10 @@ public class GraphDrawer {
         System.out.println(polylines.size());
     }
 
-    public void drawGraph(GoogleMap mMap, ArrayList<ArrayList<Edge>> edgeList, ArrayList<ArrayList<Vertex>> vertice, ArrayList<Marker> markers, ArrayList<Polyline> polylines) {
-        drawVertices(mMap, vertice, markers);
-        drawEdges(mMap, edgeList, vertice, polylines);
+    public void drawGraph(GoogleMap mMap, ArrayList<ArrayList<Edge>> edges, ArrayList<ArrayList<Vertex>> vertices, ArrayList<Marker> markers, ArrayList<Polyline> polylines) {
+
+        drawEdges(mMap, edges, vertices, polylines);
+        drawVertices(mMap, vertices, markers);
     }
 
     public void deleteGraph(GoogleMap mMap, ArrayList<ArrayList<Vertex>> vertice, ArrayList<ArrayList<Edge>> edgeList, ArrayList<Marker> markers, ArrayList<Polyline> polylines) {

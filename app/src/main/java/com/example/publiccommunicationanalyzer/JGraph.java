@@ -1,7 +1,9 @@
 package com.example.publiccommunicationanalyzer;
 
 import org.jgrapht.Graph;
+import org.jgrapht.alg.scoring.BetweennessCentrality;
 import org.jgrapht.alg.scoring.ClosenessCentrality;
+import org.jgrapht.alg.scoring.HarmonicCentrality;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -14,8 +16,41 @@ public class JGraph {
 
     DirectedWeightedMultigraph<String, DefaultWeightedEdge> graphTime = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
     DirectedWeightedMultigraph<String, DefaultWeightedEdge> graphDistance = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+//    WeightedMultigraph<String, DefaultWeightedEdge> graphTime = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+//    WeightedMultigraph<String, DefaultWeightedEdge> graphDistance = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+    //Bliskość
+    ClosenessCentrality<String, DefaultWeightedEdge> cT;
+    ClosenessCentrality<String, DefaultWeightedEdge> cD;
+    //Pośrednictwo
+    BetweennessCentrality<String, DefaultWeightedEdge> bT;
+    BetweennessCentrality<String, DefaultWeightedEdge> bD;
+    //Harmonic
+    HarmonicCentrality<String, DefaultWeightedEdge> hT;
+    HarmonicCentrality<String, DefaultWeightedEdge> hD;
 
-    Graph<String, DefaultEdge> graph = new DefaultUndirectedGraph<String, DefaultEdge>(DefaultEdge.class);
+    public ClosenessCentrality<String, DefaultWeightedEdge> getcT() {
+        return cT;
+    }
+
+    public ClosenessCentrality<String, DefaultWeightedEdge> getcD() {
+        return cD;
+    }
+
+    public BetweennessCentrality<String, DefaultWeightedEdge> getbT() {
+        return bT;
+    }
+
+    public BetweennessCentrality<String, DefaultWeightedEdge> getbD() {
+        return bD;
+    }
+
+    public HarmonicCentrality<String, DefaultWeightedEdge> gethT() {
+        return hT;
+    }
+
+    public HarmonicCentrality<String, DefaultWeightedEdge> gethD() {
+        return hD;
+    }
 
     private void addVertices(ArrayList<ArrayList<Vertex>> vertices) {
         for (ArrayList<Vertex> vertexList : vertices) {
@@ -47,6 +82,20 @@ public class JGraph {
         clearGraph();
         addVertices(vertices);
         addEdges(vertices, edges);
+
+        //Centralność
+
+        //Bliskość
+        cT = new ClosenessCentrality<>(graphTime);
+        cD = new ClosenessCentrality<>(graphDistance);
+
+        //Pośrednictwo
+        bT = new BetweennessCentrality<>(graphTime);
+        bD = new BetweennessCentrality<>(graphDistance);
+
+        //Harmonic
+        hT = new HarmonicCentrality<>(graphTime);
+        hD = new HarmonicCentrality<>(graphDistance);
     }
 
     public void printEdges() {
@@ -59,16 +108,21 @@ public class JGraph {
 
         i = 0;
         System.out.println("GRAPH:");
-        ClosenessCentrality<String, DefaultWeightedEdge> c = new ClosenessCentrality<>(graphTime);
+
+
+
         for (DefaultWeightedEdge e : graphTime.edgeSet()) {
             i++;
             System.out.println(i + ". " + graphTime.getEdgeSource(e) + " --> " + graphTime.getEdgeTarget(e) + " " + graphTime.getEdgeWeight(e));
-            System.out.println("Stopien: " + graphTime.inDegreeOf(graphTime.getEdgeSource(e)) + " Bliskość: " + c.getVertexScore(graphTime.getEdgeSource(e))) ;
+            System.out.println("Stopien: " + graphTime.degreeOf(graphTime.getEdgeSource(e)) + " Bliskość: " + cT.getVertexScore(graphTime.getEdgeSource(e)) + " Pośrednictwo: " + bT.getVertexScore(graphTime.getEdgeSource(e)) + " Harmonia: " + hT.getVertexScore(graphTime.getEdgeSource(e))) ;
         }
     }
 
     public void clearGraph() {
         graphTime = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
         graphDistance = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+
+//        graphTime = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+//        graphDistance = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
     }
 }

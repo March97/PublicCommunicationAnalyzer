@@ -76,6 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         graphEdges = new ArrayList<ArrayList<Edge>>();
         graphVertices = new ArrayList<ArrayList<Vertex>>();
+        //mMap.setInfoWindowAdapter(new InfoVertexAdapter(this, graphVertices, graphEdges));
 
         markers = new ArrayList<Marker>();
         polylines = new ArrayList<Polyline>();
@@ -99,12 +100,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (listsReady) {
 //                    Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
                     //setVertices(graphEdges);
+
+
+//                    jGraph.setGraph(graphVertices, graphEdges);
+//                    jGraph.printEdges();
                     graphDrawer.drawGraph(mMap, graphEdges, graphVertices, markers, polylines);
+                    mMap.setInfoWindowAdapter(new InfoVertexAdapter(MapsActivity.this, graphVertices, graphEdges));
                     if(!markers.isEmpty())
                         btnInfo.setVisibility(View.VISIBLE);
-
-                    jGraph.setGraph(graphVertices, graphEdges);
-                    jGraph.printEdges();
                     Toast.makeText(MapsActivity.this, "Rysuję graf", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
