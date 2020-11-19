@@ -6,7 +6,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedMultigraph;
-import org.jgrapht.graph.SimpleDirectedWeightedGraph;
+import org.jgrapht.graph.WeightedMultigraph;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,7 @@ public class JGraph {
         for (int j = 0; j < vertices.size(); j++) {
             for (int k = 0; k < edges.get(j).size(); k++) {
                 Edge edge = new Edge(edges.get(j).get(k));
-                if (edge.getV1() != 0) {
+                if (edge.getV1() != 0 && edge.getV1() != edge.getV2() ) {
                     graphTime.addEdge(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()));
                     graphTime.setEdgeWeight(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()), edge.getTime_from_last());
                     graphDistance.addEdge(String.valueOf(edge.getV1()), String.valueOf(edge.getV2()));
