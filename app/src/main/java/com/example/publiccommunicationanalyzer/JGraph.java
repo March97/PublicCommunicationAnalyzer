@@ -12,25 +12,36 @@ import org.jgrapht.graph.DirectedWeightedMultigraph;
 import org.jgrapht.graph.WeightedMultigraph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JGraph {
 
-    DirectedWeightedMultigraph<String, DefaultWeightedEdge> graphTime = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
-    DirectedWeightedMultigraph<String, DefaultWeightedEdge> graphDistance = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+    private DirectedWeightedMultigraph<String, DefaultWeightedEdge> graphTime = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+    private DirectedWeightedMultigraph<String, DefaultWeightedEdge> graphDistance = new DirectedWeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 //    WeightedMultigraph<String, DefaultWeightedEdge> graphTime = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 //    WeightedMultigraph<String, DefaultWeightedEdge> graphDistance = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
     //Bliskość
-    ClosenessCentrality<String, DefaultWeightedEdge> cT;
-    ClosenessCentrality<String, DefaultWeightedEdge> cD;
+    private ClosenessCentrality<String, DefaultWeightedEdge> cT;
+    private ClosenessCentrality<String, DefaultWeightedEdge> cD;
     //Pośrednictwo
-    BetweennessCentrality<String, DefaultWeightedEdge> bT;
-    BetweennessCentrality<String, DefaultWeightedEdge> bD;
+    private BetweennessCentrality<String, DefaultWeightedEdge> bT;
+    private BetweennessCentrality<String, DefaultWeightedEdge> bD;
     //Harmonic
-    HarmonicCentrality<String, DefaultWeightedEdge> hT;
-    HarmonicCentrality<String, DefaultWeightedEdge> hD;
+    private HarmonicCentrality<String, DefaultWeightedEdge> hT;
+    private HarmonicCentrality<String, DefaultWeightedEdge> hD;
 
-    PageRank<String, DefaultWeightedEdge> prT;
-    PageRank<String, DefaultWeightedEdge> prD;
+    private PageRank<String, DefaultWeightedEdge> prT;
+    private PageRank<String, DefaultWeightedEdge> prD;
+
+    private Map<String, Double> closenessCentralityTimeMap;
+    private  Map<String, Double> closenessCentralityDistanceMap;
+    private Map<String, Double> betweennessCentralityTimeMap;
+    private  Map<String, Double> betweennessCentralityDistanceMap;
+    private Map<String, Double> harmonicCentralityTimeMap;
+    private  Map<String, Double> harmonicCentralityDistanceMap;
+    private Map<String, Double> pageRankTimeMap;
+    private Map<String, Double> pageRankDistanceMap;
 
     public ClosenessCentrality<String, DefaultWeightedEdge> getcT() {
         return cT;
@@ -62,6 +73,46 @@ public class JGraph {
 
     public PageRank<String, DefaultWeightedEdge> getPrD() {
         return prD;
+    }
+
+    public DirectedWeightedMultigraph<String, DefaultWeightedEdge> getGraphTime() {
+        return graphTime;
+    }
+
+    public DirectedWeightedMultigraph<String, DefaultWeightedEdge> getGraphDistance() {
+        return graphDistance;
+    }
+
+    public Map<String, Double> getClosenessCentralityTimeMap() {
+        return closenessCentralityTimeMap;
+    }
+
+    public Map<String, Double> getClosenessCentralityDistanceMap() {
+        return closenessCentralityDistanceMap;
+    }
+
+    public Map<String, Double> getBetweennessCentralityTimeMap() {
+        return betweennessCentralityTimeMap;
+    }
+
+    public Map<String, Double> getBetweennessCentralityDistanceMap() {
+        return betweennessCentralityDistanceMap;
+    }
+
+    public Map<String, Double> getHarmonicCentralityTimeMap() {
+        return harmonicCentralityTimeMap;
+    }
+
+    public Map<String, Double> getHarmonicCentralityDistanceMap() {
+        return harmonicCentralityDistanceMap;
+    }
+
+    public Map<String, Double> getPageRankTimeMap() {
+        return pageRankTimeMap;
+    }
+
+    public Map<String, Double> getPageRankDistanceMap() {
+        return pageRankDistanceMap;
     }
 
     private void addVertices(ArrayList<ArrayList<Vertex>> vertices) {
@@ -111,6 +162,15 @@ public class JGraph {
 
         prT = new PageRank<>(graphTime);
         prD = new PageRank<>(graphDistance);
+
+        closenessCentralityTimeMap = cT.getScores();
+        closenessCentralityDistanceMap = cD.getScores();
+        betweennessCentralityTimeMap = bT.getScores();
+        betweennessCentralityDistanceMap = bD.getScores();
+        harmonicCentralityTimeMap = hT.getScores();
+        harmonicCentralityDistanceMap = hD.getScores();
+        pageRankTimeMap = prT.getScores();
+        pageRankDistanceMap = prD.getScores();
     }
 
     public void printEdges() {
@@ -123,8 +183,6 @@ public class JGraph {
 
         i = 0;
         System.out.println("GRAPH:");
-
-
 
         for (DefaultWeightedEdge e : graphTime.edgeSet()) {
             i++;
@@ -139,5 +197,55 @@ public class JGraph {
 
 //        graphTime = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 //        graphDistance = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+    }
+
+    public String getMax(Map<String, Double> map) {
+
+        String key = "";
+        double toCompare = 0;
+        for(Map.Entry<String, Double> entry : map.entrySet()) {
+            if(entry.getValue() >= toCompare) {
+                toCompare = entry.getValue();
+                key = entry.getKey();
+            }
+        }
+//        Map<String, Double> toReturn = new HashMap<>();
+//        toReturn.put(key, toCompare);
+        return String.format("%.6f", toCompare) + " : " + key;
+    }
+
+    public String getMin(Map<String, Double> map) {
+
+        String key = "";
+        double toCompare = 0;
+
+        for(Map.Entry<String, Double> entry : map.entrySet()) {
+            if(key.compareTo("") == 0) {
+                toCompare = entry.getValue();
+                key = entry.getKey();
+            }
+
+            if(entry.getValue() < toCompare) {
+                toCompare = entry.getValue();
+                key = entry.getKey();
+            }
+        }
+//        Map<String, Double> toReturn = new HashMap<>();
+//        toReturn.put(key, toCompare);
+        return String.format("%.6f", toCompare) + " : " + key;
+    }
+
+    public String maxDegree() {
+
+        int degree = 0;
+        String key = "";
+
+        for(String vertex : graphTime.vertexSet()) {
+            if(graphTime.degreeOf(vertex) >= degree) {
+                degree = graphTime.degreeOf(vertex);
+                key = vertex;
+            }
+        }
+        return degree + " : " + key;
     }
 }

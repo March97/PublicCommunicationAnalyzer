@@ -1,14 +1,435 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvInfo"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_line_info" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_xlarge"
+        android:orientation="vertical">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:maxLines="1"
+                android:text="Ilość wierzchołków: "
+                android:textSize="@dimen/font_medium" />
+
+            <TextView
+                android:id="@+id/tvVerticesAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:maxLines="1"
+                android:text="1"
+                android:textSize="@dimen/font_medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:maxLines="1"
+                android:text="Ilość krawędzi: "
+                android:textSize="@dimen/font_medium" />
+
+            <TextView
+                android:id="@+id/tvEdgesAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:maxLines="1"
+                android:text="1"
+                android:textSize="@dimen/font_medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:maxLines="1"
+                android:text="Maks. stopień wierzchołka: "
+                android:textSize="@dimen/font_medium" />
+
+            <TextView
+                android:id="@+id/tvMaxDegree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:maxLines="1"
+                android:text="1"
+                android:textSize="@dimen/font_medium" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:maxLines="1"
+            android:text="Ze względu na czas:"
+            android:textSize="@dimen/font_medium"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Maks. bliskość: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Min. bliskość: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Maks. pośrednictwo: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Min. pośrednictwo: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Maks. harmoniczność: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Min. harmoniczność: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Maks. wektory własne: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Min. wektory własne: "
+                    android:textSize="@dimen/font_medium" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCloseTimeMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="2 "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvCloseTimeMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="2 "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvBetweenTimeMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="3"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvBetweenTimeMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="3"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvHarmonyTimeMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="4"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvHarmonyTimeMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="4"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvPageRankTimeMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="4"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvPageRankTimeMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="4"
+                    android:textSize="@dimen/font_medium" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:maxLines="1"
+            android:text="Ze względu na dystans:"
+            android:textSize="@dimen/font_medium"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Maks. bliskość: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Min. bliskość: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Maks. pośrednictwo: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Min. pośrednictwo: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Maks. harmoniczność: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Min. harmoniczność: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Maks. wektory własne: "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="Min. wektory własne: "
+                    android:textSize="@dimen/font_medium" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCloseDistanceMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="2 "
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvCloseDistanceMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="2 "
+                    android:textSize="@dimen/font_medium" />
+
+
+                <TextView
+                    android:id="@+id/tvBetweenDistanceMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="3"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvBetweenDistanceMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="3"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvHarmonyDistanceMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="4"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvHarmonyDistanceMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="4"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvPageRankDistanceMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="4"
+                    android:textSize="@dimen/font_medium" />
+
+                <TextView
+                    android:id="@+id/tvPageRankDistanceMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:maxLines="1"
+                    android:text="4"
+                    android:textSize="@dimen/font_medium" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:maxLines="1"
+            android:text="Dodane kursy:"
+            android:textSize="@dimen/font_medium"
+            android:textStyle="bold" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lvServices" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

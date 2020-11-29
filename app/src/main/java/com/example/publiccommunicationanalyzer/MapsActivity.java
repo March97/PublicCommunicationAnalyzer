@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -36,6 +37,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<String> linesList;
     private ArrayList<String> daysList;
     private ArrayList<String> servicesList;
+    private ArrayList<String> selectedServices;
     private ArrayList<Edge> selectedEdgesList;
     private boolean listsReady;
     private String selectedLine;
@@ -72,6 +74,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapsViewModel = new ViewModelProvider(this).get(MapsViewModel.class);
 
+        selectedServices = new ArrayList<String>();
+
         //edgesList = new ArrayList<Edge>();
 
         graphEdges = new ArrayList<ArrayList<Edge>>();
@@ -102,10 +106,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //setVertices(graphEdges);
 
 
-//                    jGraph.setGraph(graphVertices, graphEdges);
-//                    jGraph.printEdges();
+                    jGraph.setGraph(graphVertices, graphEdges);
+//                    final Map<String, Double> scores = jGraph.getPrD().getScores();
+//                    System.out.println("SCORES: " + scores.get(String.valueOf(graphVertices.get(0).get(0).getId())));
+                    jGraph.printEdges();
                     graphDrawer.drawGraph(mMap, graphEdges, graphVertices, markers, polylines);
-                    mMap.setInfoWindowAdapter(new InfoVertexAdapter(MapsActivity.this, graphVertices, graphEdges));
+                    mMap.setInfoWindowAdapter(new InfoVertexAdapter(MapsActivity.this, jGraph));
+//                    mMap.setInfoWindowAdapter(new InfoVertexAdapter(MapsActivity.this, graphVertices, graphEdges));
                     if(!markers.isEmpty())
                         btnInfo.setVisibility(View.VISIBLE);
                     Toast.makeText(MapsActivity.this, "Rysuję graf", Toast.LENGTH_SHORT).show();
@@ -124,6 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                    openInfoDialog();
                     graphDrawer.deleteGraph(mMap, graphVertices, graphEdges, markers, polylines);
                     jGraph.clearGraph();
+                    selectedServices.clear();
                     if(markers.isEmpty())
                         btnInfo.setVisibility(View.INVISIBLE);
                 } else {
@@ -149,9 +157,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         try {
             setObserverLinesList();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
         //setObserverDaysList();
@@ -222,9 +228,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //Toast.makeText(MapsActivity.this, "onChanged  wybrane łuki" + edges.size() + " " + selectedEdgesList.size() + " " + graphEdges.size(), Toast.LENGTH_SHORT).show();
                 try {
                     setVertices(graphEdges);
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -242,9 +246,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 graphVertices.get(position).add(vertex);
                 try {
                     mapsViewModel.getVertex(id).removeObserver(observerGetVertex);
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -287,6 +289,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void applyTextsService(String service) throws ExecutionException, InterruptedException {
         selectedService = service;
+        selectedServices.add(service);
         //Toast.makeText(MapsActivity.this, "selectedService: " + selectedService, Toast.LENGTH_SHORT).show();
 
         mapsViewModel.getSelectedEdges(selectedService).removeObserver(observerSelectedEdgesList);
@@ -294,7 +297,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void openInfoDialog() {
-        InfoDialog infoDialog = new InfoDialog(graphVertices, graphEdges);
+        InfoDialog infoDialog = new InfoDialog(jGraph, selectedServices);
         infoDialog.show(getSupportFragmentManager(), "add line dialog");
     }
 

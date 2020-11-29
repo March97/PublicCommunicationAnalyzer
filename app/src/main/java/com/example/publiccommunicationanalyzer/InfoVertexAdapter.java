@@ -39,12 +39,17 @@ public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
     private Double prT;
     private Double prD;
 
-    private final JGraph jGraph = new JGraph();
+    private final JGraph jGraph;
 
-    public InfoVertexAdapter(@NonNull Context context, ArrayList<ArrayList<Vertex>> vertices, ArrayList<ArrayList<Edge>> edges) {
-        jGraph.setGraph(vertices, edges);
+//    public InfoVertexAdapter(@NonNull Context context, ArrayList<ArrayList<Vertex>> vertices, ArrayList<ArrayList<Edge>> edges) {
+//        jGraph.setGraph(vertices, edges);
+//        this.context = context;
+//
+//    }
+
+    public InfoVertexAdapter(@NonNull Context context, JGraph jGraph) {
         this.context = context;
-
+        this.jGraph = jGraph;
     }
 
     @Override
@@ -55,7 +60,7 @@ public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
         id.setText("ID: " + marker.getTitle());
 
         TextView dt = (TextView) view.findViewById(R.id.tvDegreeTime);
-        dt.setText(String.valueOf(jGraph.graphTime.degreeOf(marker.getTitle())));
+        dt.setText(String.valueOf(jGraph.getGraphTime().degreeOf(marker.getTitle())));
 
         TextView cTt = (TextView) view.findViewById(R.id.tvCloseTime);
         cT = jGraph.getcT().getVertexScore(marker.getTitle());
