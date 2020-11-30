@@ -1,6 +1,7 @@
 package com.example.publiccommunicationanalyzer;
 
 import org.jgrapht.Graph;
+import org.jgrapht.alg.scoring.AlphaCentrality;
 import org.jgrapht.alg.scoring.BetweennessCentrality;
 import org.jgrapht.alg.scoring.ClosenessCentrality;
 import org.jgrapht.alg.scoring.HarmonicCentrality;
@@ -11,6 +12,8 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.DirectedWeightedMultigraph;
 import org.jgrapht.graph.WeightedMultigraph;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +36,9 @@ public class JGraph {
 
     private PageRank<String, DefaultWeightedEdge> prT;
     private PageRank<String, DefaultWeightedEdge> prD;
+
+    private AlphaCentrality<String, DefaultWeightedEdge> aT;
+    private AlphaCentrality<String, DefaultWeightedEdge> aD;
 
     private Map<String, Double> closenessCentralityTimeMap;
     private  Map<String, Double> closenessCentralityDistanceMap;
@@ -73,6 +79,14 @@ public class JGraph {
 
     public PageRank<String, DefaultWeightedEdge> getPrD() {
         return prD;
+    }
+
+    public AlphaCentrality<String, DefaultWeightedEdge> getaT() {
+        return aT;
+    }
+
+    public AlphaCentrality<String, DefaultWeightedEdge> getaD() {
+        return aD;
     }
 
     public DirectedWeightedMultigraph<String, DefaultWeightedEdge> getGraphTime() {
@@ -163,6 +177,9 @@ public class JGraph {
         prT = new PageRank<>(graphTime);
         prD = new PageRank<>(graphDistance);
 
+        aT = new AlphaCentrality<>(graphTime);
+        aD = new AlphaCentrality<>(graphDistance);
+
         closenessCentralityTimeMap = cT.getScores();
         closenessCentralityDistanceMap = cD.getScores();
         betweennessCentralityTimeMap = bT.getScores();
@@ -211,7 +228,8 @@ public class JGraph {
         }
 //        Map<String, Double> toReturn = new HashMap<>();
 //        toReturn.put(key, toCompare);
-        return String.format("%.6f", toCompare) + " : " + key;
+        NumberFormat formatter = new DecimalFormat("0.###E0");
+        return formatter.format(toCompare) + " : " + key;
     }
 
     public String getMin(Map<String, Double> map) {
@@ -232,7 +250,8 @@ public class JGraph {
         }
 //        Map<String, Double> toReturn = new HashMap<>();
 //        toReturn.put(key, toCompare);
-        return String.format("%.6f", toCompare) + " : " + key;
+        NumberFormat formatter = new DecimalFormat("0.###E0");
+        return formatter.format(toCompare) + " : " + key;
     }
 
     public String maxDegree() {

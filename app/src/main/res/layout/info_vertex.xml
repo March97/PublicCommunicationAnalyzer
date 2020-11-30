@@ -57,7 +57,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:text="Alpha: "
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -98,7 +104,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
+            <TextView
+                android:id="@+id/tvAlphaTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:text="2 "
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tvCloseTime"
@@ -162,6 +175,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
+                android:text="Alpha: "
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
                 android:text="Bliskość: "
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
@@ -195,6 +216,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAlphaDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:text="2 "
+                android:textSize="@dimen/font_medium"
+                android:maxLines="1" />
 
             <TextView
                 android:id="@+id/tvCloseDistance"

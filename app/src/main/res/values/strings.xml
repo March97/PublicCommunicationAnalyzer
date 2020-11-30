@@ -5,7 +5,7 @@
     <string name="dialog_line">Wybierz numer linii:</string>
     <string name="dialog_day">Wybierz dzień kursu:</string>
     <string name="dialog_service">Wybierz konkretny kurs:</string>
-    <string name="dialog_info">Dodane kursy:</string>
+    <string name="dialog_info">Informacje o grafie:</string>
 
     <string name="DP">Dni powszednie</string>
     <string name="DS">Dni świąteczne</string>

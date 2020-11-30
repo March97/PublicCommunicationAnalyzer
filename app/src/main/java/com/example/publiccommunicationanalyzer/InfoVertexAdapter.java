@@ -19,6 +19,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
@@ -26,6 +27,9 @@ public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
     Context context;
     private View view;
     private String name, vicinity;
+
+    private  Double aT;
+    private  Double aD;
 
     private Double cT;
     private Double cD;
@@ -62,37 +66,49 @@ public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
         TextView dt = (TextView) view.findViewById(R.id.tvDegreeTime);
         dt.setText(String.valueOf(jGraph.getGraphTime().degreeOf(marker.getTitle())));
 
+        NumberFormat formatter = new DecimalFormat("0.###E0");
+        TextView aTt = (TextView) view.findViewById(R.id.tvAlphaTime);
+        aT = jGraph.getaT().getVertexScore(marker.getTitle());
+        aTt.setText(formatter.format(aT));
+
+        TextView aDt = (TextView) view.findViewById(R.id.tvAlphaDistance);
+        aD = jGraph.getaD().getVertexScore(marker.getTitle());
+        aDt.setText(formatter.format(aD));
+
         TextView cTt = (TextView) view.findViewById(R.id.tvCloseTime);
         cT = jGraph.getcT().getVertexScore(marker.getTitle());
-        cTt.setText(String.format("%.6f", cT));
+        cTt.setText(formatter.format(cT));
 
         TextView cDt = (TextView) view.findViewById(R.id.tvCloseDistance);
         cD = jGraph.getcD().getVertexScore(marker.getTitle());
-        cDt.setText(String.format("%.6f", cD));
+        cDt.setText(formatter.format(cD));
 
         TextView bTt = (TextView) view.findViewById(R.id.tvBetweenTime);
         bT = jGraph.getbT().getVertexScore(marker.getTitle());
-        bTt.setText(String.valueOf(bT));
+        bTt.setText(formatter.format(bT));
 
         TextView bDt = (TextView) view.findViewById(R.id.tvBetweenDistance);
         bD = jGraph.getbD().getVertexScore(marker.getTitle());
-        bDt.setText(String.valueOf(bD));
+        bDt.setText(formatter.format(bD));
 
         TextView hTt = (TextView) view.findViewById(R.id.tvHarmonyTime);
         hT = jGraph.gethT().getVertexScore(marker.getTitle());
-        hTt.setText(String.format("%.6f", hT));
+        hTt.setText(formatter.format(hT));
 
         TextView hDt = (TextView) view.findViewById(R.id.tvHarmonyDistance);
         hD = jGraph.gethD().getVertexScore(marker.getTitle());
-        hDt.setText(String.format("%.6f", hD));
+        hDt.setText(formatter.format(hD));
 
         TextView prTt = (TextView) view.findViewById(R.id.tvPageRankTime);
         prT = jGraph.getPrT().getVertexScore(marker.getTitle());
-        prTt.setText(String.format("%.6f", prT));
+        prTt.setText(formatter.format(prT));
 
         TextView prDt = (TextView) view.findViewById(R.id.tvPageRankDistance);
         prD = jGraph.getPrD().getVertexScore(marker.getTitle());
-        prDt.setText(String.format("%.6f", prD));
+        prDt.setText(formatter.format(prD));
+
+        System.out.println("Alpha time: " + jGraph.getaT().getVertexScore(marker.getTitle()));
+        System.out.println("Alpha distance: " + jGraph.getaD().getVertexScore(marker.getTitle()));
 
         return view;
     }
