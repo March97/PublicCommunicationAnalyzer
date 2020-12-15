@@ -15,4 +15,12 @@
     <string name="NO">Noc dla wszystkich dni tygodnia</string>
     <string name="D1">Dzień danego dnia tygodnia</string>
     <string name="N1">Noc danego dnia tygodnia</string>
+
+    <string name="Alpha">Alpha: </string>
+    <string name="PageRank">PageRank: </string>
+    <string name="Closeness">Closeness: </string>
+    <string name="Betweenness">Betweenness: </string>
+    <string name="Harmonic">Harmonic: </string>
+
+
 </resources>

@@ -134,6 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     selectedServices.clear();
                     if(markers.isEmpty())
                         btnInfo.setVisibility(View.INVISIBLE);
+                    Toast.makeText(MapsActivity.this, "Usunięto graf", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MapsActivity.this, "Poczekaj na załadowanie bazy danych", Toast.LENGTH_SHORT).show();
                 }
@@ -294,6 +295,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapsViewModel.getSelectedEdges(selectedService).removeObserver(observerSelectedEdgesList);
         setObserverSelectedEdgesList();
+        Toast.makeText(MapsActivity.this, "Dodano kurs: " + selectedService, Toast.LENGTH_SHORT).show();
     }
 
     public void openInfoDialog() {

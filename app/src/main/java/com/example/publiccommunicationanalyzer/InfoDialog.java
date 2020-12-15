@@ -53,6 +53,12 @@ public class InfoDialog extends AppCompatDialogFragment {
         TextView maxDegree = (TextView) view.findViewById(R.id.tvMaxDegree);
         maxDegree.setText(jGraph.maxDegree());
 
+        TextView maxAlphaTime = (TextView) view.findViewById(R.id.tvALphaTimeMax);
+        maxAlphaTime.setText(jGraph.getMax(jGraph.getaT().getScores()));
+
+        TextView minAlphaTime = (TextView) view.findViewById(R.id.tvAlphaTimeMin);
+        minAlphaTime.setText(jGraph.getMin(jGraph.getaT().getScores()));
+
         TextView maxCloseTime = (TextView) view.findViewById(R.id.tvCloseTimeMax);
         maxCloseTime.setText(jGraph.getMax(jGraph.getcT().getScores()));
 
@@ -76,6 +82,12 @@ public class InfoDialog extends AppCompatDialogFragment {
 
         TextView minPageRankTime = (TextView) view.findViewById(R.id.tvPageRankTimeMin);
         minPageRankTime.setText(jGraph.getMin(jGraph.getPrT().getScores()));
+
+        TextView maxAlphaDistance = (TextView) view.findViewById(R.id.tvAlphaDistanceMax);
+        maxAlphaDistance.setText(jGraph.getMax(jGraph.getaD().getScores()));
+
+        TextView minAlphaDistance = (TextView) view.findViewById(R.id.tvAlphaDistanceMin);
+        minAlphaDistance.setText(jGraph.getMin(jGraph.getaD().getScores()));
 
         TextView maxCloseDistance = (TextView) view.findViewById(R.id.tvCloseDistanceMax);
         maxCloseDistance.setText(jGraph.getMax(jGraph.getcD().getScores()));

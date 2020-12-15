@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Alpha: "
+                android:text="@string/Alpha"
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Bliskość: "
+                android:text="@string/Closeness"
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Harmoniczność: "
+                android:text="@string/Harmonic"
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Wektory własne: "
+                android:text="@string/PageRank"
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
@@ -175,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Alpha: "
+                android:text="@string/Alpha"
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
@@ -183,7 +183,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Bliskość: "
+                android:text="@string/Closeness"
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
@@ -191,7 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Pośrednictwo: "
+                android:text="@string/Betweenness"
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
@@ -199,7 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Harmoniczność: "
+                android:text="@string/Harmonic"
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
 
@@ -207,7 +207,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_small"
-                android:text="Wektory własne: "
+                android:text="@string/PageRank"
                 android:textSize="@dimen/font_medium"
                 android:maxLines="1" />
         </LinearLayout>
