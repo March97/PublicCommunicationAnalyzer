@@ -25,14 +25,14 @@ public class JGraph {
 //    WeightedMultigraph<String, DefaultWeightedEdge> graphTime = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 //    WeightedMultigraph<String, DefaultWeightedEdge> graphDistance = new WeightedMultigraph<String, DefaultWeightedEdge>(DefaultWeightedEdge.class);
     //Bliskość
-    private ClosenessCentrality<String, DefaultWeightedEdge> cT;
-    private ClosenessCentrality<String, DefaultWeightedEdge> cD;
+//    private ClosenessCentrality<String, DefaultWeightedEdge> cT;
+//    private ClosenessCentrality<String, DefaultWeightedEdge> cD;
     //Pośrednictwo
     private BetweennessCentrality<String, DefaultWeightedEdge> bT;
     private BetweennessCentrality<String, DefaultWeightedEdge> bD;
     //Harmonic
-    private HarmonicCentrality<String, DefaultWeightedEdge> hT;
-    private HarmonicCentrality<String, DefaultWeightedEdge> hD;
+//    private HarmonicCentrality<String, DefaultWeightedEdge> hT;
+//    private HarmonicCentrality<String, DefaultWeightedEdge> hD;
 
     private PageRank<String, DefaultWeightedEdge> prT;
     private PageRank<String, DefaultWeightedEdge> prD;
@@ -49,13 +49,13 @@ public class JGraph {
     private Map<String, Double> pageRankTimeMap;
     private Map<String, Double> pageRankDistanceMap;
 
-    public ClosenessCentrality<String, DefaultWeightedEdge> getcT() {
-        return cT;
-    }
-
-    public ClosenessCentrality<String, DefaultWeightedEdge> getcD() {
-        return cD;
-    }
+//    public ClosenessCentrality<String, DefaultWeightedEdge> getcT() {
+//        return cT;
+//    }
+//
+//    public ClosenessCentrality<String, DefaultWeightedEdge> getcD() {
+//        return cD;
+//    }
 
     public BetweennessCentrality<String, DefaultWeightedEdge> getbT() {
         return bT;
@@ -65,13 +65,13 @@ public class JGraph {
         return bD;
     }
 
-    public HarmonicCentrality<String, DefaultWeightedEdge> gethT() {
-        return hT;
-    }
-
-    public HarmonicCentrality<String, DefaultWeightedEdge> gethD() {
-        return hD;
-    }
+//    public HarmonicCentrality<String, DefaultWeightedEdge> gethT() {
+//        return hT;
+//    }
+//
+//    public HarmonicCentrality<String, DefaultWeightedEdge> gethD() {
+//        return hD;
+//    }
 
     public PageRank<String, DefaultWeightedEdge> getPrT() {
         return prT;
@@ -97,13 +97,13 @@ public class JGraph {
         return graphDistance;
     }
 
-    public Map<String, Double> getClosenessCentralityTimeMap() {
-        return closenessCentralityTimeMap;
-    }
-
-    public Map<String, Double> getClosenessCentralityDistanceMap() {
-        return closenessCentralityDistanceMap;
-    }
+//    public Map<String, Double> getClosenessCentralityTimeMap() {
+//        return closenessCentralityTimeMap;
+//    }
+//
+//    public Map<String, Double> getClosenessCentralityDistanceMap() {
+//        return closenessCentralityDistanceMap;
+//    }
 
     public Map<String, Double> getBetweennessCentralityTimeMap() {
         return betweennessCentralityTimeMap;
@@ -113,13 +113,13 @@ public class JGraph {
         return betweennessCentralityDistanceMap;
     }
 
-    public Map<String, Double> getHarmonicCentralityTimeMap() {
-        return harmonicCentralityTimeMap;
-    }
-
-    public Map<String, Double> getHarmonicCentralityDistanceMap() {
-        return harmonicCentralityDistanceMap;
-    }
+//    public Map<String, Double> getHarmonicCentralityTimeMap() {
+//        return harmonicCentralityTimeMap;
+//    }
+//
+//    public Map<String, Double> getHarmonicCentralityDistanceMap() {
+//        return harmonicCentralityDistanceMap;
+//    }
 
     public Map<String, Double> getPageRankTimeMap() {
         return pageRankTimeMap;
@@ -163,16 +163,16 @@ public class JGraph {
         //Centralność
 
         //Bliskość
-        cT = new ClosenessCentrality<>(graphTime);
-        cD = new ClosenessCentrality<>(graphDistance);
+//        cT = new ClosenessCentrality<>(graphTime);
+//        cD = new ClosenessCentrality<>(graphDistance);
 
         //Pośrednictwo
         bT = new BetweennessCentrality<>(graphTime);
         bD = new BetweennessCentrality<>(graphDistance);
 
         //Harmonic
-        hT = new HarmonicCentrality<>(graphTime);
-        hD = new HarmonicCentrality<>(graphDistance);
+//        hT = new HarmonicCentrality<>(graphTime);
+//        hD = new HarmonicCentrality<>(graphDistance);
 
         prT = new PageRank<>(graphTime);
         prD = new PageRank<>(graphDistance);
@@ -180,12 +180,12 @@ public class JGraph {
         aT = new AlphaCentrality<>(graphTime);
         aD = new AlphaCentrality<>(graphDistance);
 
-        closenessCentralityTimeMap = cT.getScores();
-        closenessCentralityDistanceMap = cD.getScores();
+//        closenessCentralityTimeMap = cT.getScores();
+//        closenessCentralityDistanceMap = cD.getScores();
         betweennessCentralityTimeMap = bT.getScores();
         betweennessCentralityDistanceMap = bD.getScores();
-        harmonicCentralityTimeMap = hT.getScores();
-        harmonicCentralityDistanceMap = hD.getScores();
+//        harmonicCentralityTimeMap = hT.getScores();
+//        harmonicCentralityDistanceMap = hD.getScores();
         pageRankTimeMap = prT.getScores();
         pageRankDistanceMap = prD.getScores();
     }
@@ -204,7 +204,7 @@ public class JGraph {
         for (DefaultWeightedEdge e : graphTime.edgeSet()) {
             i++;
             System.out.println(i + ". " + graphTime.getEdgeSource(e) + " --> " + graphTime.getEdgeTarget(e) + " " + graphTime.getEdgeWeight(e));
-            System.out.println("Stopien: " + graphTime.degreeOf(graphTime.getEdgeSource(e)) + " Bliskość: " + cT.getVertexScore(graphTime.getEdgeSource(e)) + " Pośrednictwo: " + bT.getVertexScore(graphTime.getEdgeSource(e)) + " Harmonia: " + hT.getVertexScore(graphTime.getEdgeSource(e))) ;
+            System.out.println("Stopien: " + graphTime.degreeOf(graphTime.getEdgeSource(e)) + " Pośrednictwo: " + bT.getVertexScore(graphTime.getEdgeSource(e))) ;
         }
     }
 

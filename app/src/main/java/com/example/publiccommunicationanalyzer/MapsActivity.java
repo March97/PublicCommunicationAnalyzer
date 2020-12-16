@@ -109,7 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     jGraph.setGraph(graphVertices, graphEdges);
 //                    final Map<String, Double> scores = jGraph.getPrD().getScores();
 //                    System.out.println("SCORES: " + scores.get(String.valueOf(graphVertices.get(0).get(0).getId())));
-                    jGraph.printEdges();
+//                    jGraph.printEdges();
                     graphDrawer.drawGraph(mMap, graphEdges, graphVertices, markers, polylines);
                     mMap.setInfoWindowAdapter(new InfoVertexAdapter(MapsActivity.this, jGraph));
 //                    mMap.setInfoWindowAdapter(new InfoVertexAdapter(MapsActivity.this, graphVertices, graphEdges));
@@ -293,6 +293,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         selectedServices.add(service);
         //Toast.makeText(MapsActivity.this, "selectedService: " + selectedService, Toast.LENGTH_SHORT).show();
 
+        mapsViewModel.getSelectedEdges(selectedService);
         mapsViewModel.getSelectedEdges(selectedService).removeObserver(observerSelectedEdgesList);
         setObserverSelectedEdgesList();
         Toast.makeText(MapsActivity.this, "Dodano kurs: " + selectedService, Toast.LENGTH_SHORT).show();

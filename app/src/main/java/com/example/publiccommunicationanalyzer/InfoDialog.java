@@ -56,62 +56,62 @@ public class InfoDialog extends AppCompatDialogFragment {
         TextView maxAlphaTime = (TextView) view.findViewById(R.id.tvALphaTimeMax);
         maxAlphaTime.setText(jGraph.getMax(jGraph.getaT().getScores()));
 
-        TextView minAlphaTime = (TextView) view.findViewById(R.id.tvAlphaTimeMin);
-        minAlphaTime.setText(jGraph.getMin(jGraph.getaT().getScores()));
+//        TextView minAlphaTime = (TextView) view.findViewById(R.id.tvAlphaTimeMin);
+//        minAlphaTime.setText(jGraph.getMin(jGraph.getaT().getScores()));
 
-        TextView maxCloseTime = (TextView) view.findViewById(R.id.tvCloseTimeMax);
-        maxCloseTime.setText(jGraph.getMax(jGraph.getcT().getScores()));
+//        TextView maxCloseTime = (TextView) view.findViewById(R.id.tvCloseTimeMax);
+//        maxCloseTime.setText(jGraph.getMax(jGraph.getcT().getScores()));
 
-        TextView minCloseTime = (TextView) view.findViewById(R.id.tvCloseTimeMin);
-        minCloseTime.setText(jGraph.getMin(jGraph.getcT().getScores()));
+//        TextView minCloseTime = (TextView) view.findViewById(R.id.tvCloseTimeMin);
+//        minCloseTime.setText(jGraph.getMin(jGraph.getcT().getScores()));
 
         TextView maxBetweenTime = (TextView) view.findViewById(R.id.tvBetweenTimeMax);
         maxBetweenTime.setText(jGraph.getMax(jGraph.getbT().getScores()));
 
-        TextView minBetweeneTime = (TextView) view.findViewById(R.id.tvBetweenTimeMin);
-        minBetweeneTime.setText(jGraph.getMin(jGraph.getbT().getScores()));
+//        TextView minBetweeneTime = (TextView) view.findViewById(R.id.tvBetweenTimeMin);
+//        minBetweeneTime.setText(jGraph.getMin(jGraph.getbT().getScores()));
 
-        TextView maxHarmonyTime = (TextView) view.findViewById(R.id.tvHarmonyTimeMax);
-        maxHarmonyTime.setText(jGraph.getMax(jGraph.gethT().getScores()));
+//        TextView maxHarmonyTime = (TextView) view.findViewById(R.id.tvHarmonyTimeMax);
+//        maxHarmonyTime.setText(jGraph.getMax(jGraph.gethT().getScores()));
 
-        TextView minHarmonyTime = (TextView) view.findViewById(R.id.tvHarmonyTimeMin);
-        minHarmonyTime.setText(jGraph.getMin(jGraph.gethT().getScores()));
+//        TextView minHarmonyTime = (TextView) view.findViewById(R.id.tvHarmonyTimeMin);
+//        minHarmonyTime.setText(jGraph.getMin(jGraph.gethT().getScores()));
 
         TextView maxPageRankTime = (TextView) view.findViewById(R.id.tvPageRankTimeMax);
         maxPageRankTime.setText(jGraph.getMax(jGraph.getPrT().getScores()));
 
-        TextView minPageRankTime = (TextView) view.findViewById(R.id.tvPageRankTimeMin);
-        minPageRankTime.setText(jGraph.getMin(jGraph.getPrT().getScores()));
+//        TextView minPageRankTime = (TextView) view.findViewById(R.id.tvPageRankTimeMin);
+//        minPageRankTime.setText(jGraph.getMin(jGraph.getPrT().getScores()));
 
         TextView maxAlphaDistance = (TextView) view.findViewById(R.id.tvAlphaDistanceMax);
         maxAlphaDistance.setText(jGraph.getMax(jGraph.getaD().getScores()));
 
-        TextView minAlphaDistance = (TextView) view.findViewById(R.id.tvAlphaDistanceMin);
-        minAlphaDistance.setText(jGraph.getMin(jGraph.getaD().getScores()));
+//        TextView minAlphaDistance = (TextView) view.findViewById(R.id.tvAlphaDistanceMin);
+//        minAlphaDistance.setText(jGraph.getMin(jGraph.getaD().getScores()));
 
-        TextView maxCloseDistance = (TextView) view.findViewById(R.id.tvCloseDistanceMax);
-        maxCloseDistance.setText(jGraph.getMax(jGraph.getcD().getScores()));
+//        TextView maxCloseDistance = (TextView) view.findViewById(R.id.tvCloseDistanceMax);
+//        maxCloseDistance.setText(jGraph.getMax(jGraph.getcD().getScores()));
 
-        TextView minCloseDistance = (TextView) view.findViewById(R.id.tvCloseDistanceMin);
-        minCloseDistance.setText(jGraph.getMin(jGraph.getcD().getScores()));
+//        TextView minCloseDistance = (TextView) view.findViewById(R.id.tvCloseDistanceMin);
+//        minCloseDistance.setText(jGraph.getMin(jGraph.getcD().getScores()));
 
         TextView maxBetweenDistance = (TextView) view.findViewById(R.id.tvBetweenDistanceMax);
         maxBetweenDistance.setText(jGraph.getMax(jGraph.getbD().getScores()));
 
-        TextView minBetweenDistance = (TextView) view.findViewById(R.id.tvBetweenDistanceMin);
-        minBetweenDistance.setText(jGraph.getMin(jGraph.getbD().getScores()));
+//        TextView minBetweenDistance = (TextView) view.findViewById(R.id.tvBetweenDistanceMin);
+//        minBetweenDistance.setText(jGraph.getMin(jGraph.getbD().getScores()));
 
-        TextView maxHarmonyDistance = (TextView) view.findViewById(R.id.tvHarmonyDistanceMax);
-        maxHarmonyDistance.setText(jGraph.getMax(jGraph.gethD().getScores()));
+//        TextView maxHarmonyDistance = (TextView) view.findViewById(R.id.tvHarmonyDistanceMax);
+//        maxHarmonyDistance.setText(jGraph.getMax(jGraph.gethD().getScores()));
 
-        TextView minHarmonyDistance = (TextView) view.findViewById(R.id.tvHarmonyDistanceMin);
-        minHarmonyDistance.setText(jGraph.getMin(jGraph.gethD().getScores()));
+//        TextView minHarmonyDistance = (TextView) view.findViewById(R.id.tvHarmonyDistanceMin);
+//        minHarmonyDistance.setText(jGraph.getMin(jGraph.gethD().getScores()));
 
         TextView maxPageRankDistance = (TextView) view.findViewById(R.id.tvPageRankDistanceMax);
         maxPageRankDistance.setText(jGraph.getMax(jGraph.getPrD().getScores()));
 
-        TextView minPageRankDistance = (TextView) view.findViewById(R.id.tvPageRankDistanceMin);
-        minPageRankDistance.setText(jGraph.getMin(jGraph.getPrD().getScores()));
+//        TextView minPageRankDistance = (TextView) view.findViewById(R.id.tvPageRankDistanceMin);
+//        minPageRankDistance.setText(jGraph.getMin(jGraph.getPrD().getScores()));
 
         System.out.println("SERVICES SIZE: " + selectedServices.size());
 

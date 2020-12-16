@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_small"
             android:maxLines="1"
-            android:text="Ze względu na czas:"
+            android:text="Max istotność wg. czasu:"
             android:textSize="@dimen/font_medium"
             android:textStyle="bold" />
 
@@ -109,37 +109,29 @@
                     android:text="@string/Alpha"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Alpha"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Alpha"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Closeness"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Closeness"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Closeness"
-                    android:textSize="@dimen/font_medium" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Betweenness"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Closeness"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -149,21 +141,29 @@
                     android:text="@string/Betweenness"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Harmonic"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Betweenness"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Harmonic"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Harmonic"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Harmonic"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -173,13 +173,13 @@
                     android:text="@string/PageRank"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/PageRank"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/PageRank"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
             </LinearLayout>
 
@@ -197,32 +197,32 @@
                     android:text="2 "
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:id="@+id/tvAlphaTimeMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="2 "
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvAlphaTimeMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="2 "-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:id="@+id/tvCloseTimeMax"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="2 "
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvCloseTimeMax"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="2 "-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:id="@+id/tvCloseTimeMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="2 "
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvCloseTimeMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="2 "-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
                 <TextView
                     android:id="@+id/tvBetweenTimeMax"
@@ -233,32 +233,32 @@
                     android:text="3"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:id="@+id/tvBetweenTimeMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="3"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvBetweenTimeMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="3"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:id="@+id/tvHarmonyTimeMax"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="4"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvHarmonyTimeMax"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="4"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:id="@+id/tvHarmonyTimeMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="4"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvHarmonyTimeMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="4"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
                 <TextView
                     android:id="@+id/tvPageRankTimeMax"
@@ -269,14 +269,14 @@
                     android:text="4"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:id="@+id/tvPageRankTimeMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="4"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvPageRankTimeMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="4"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
             </LinearLayout>
 
@@ -288,7 +288,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_small"
             android:maxLines="1"
-            android:text="Ze względu na dystans:"
+            android:text="Max istotność wg. dystansu:"
             android:textSize="@dimen/font_medium"
             android:textStyle="bold" />
 
@@ -310,37 +310,29 @@
                     android:text="@string/Alpha"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Alpha"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Alpha"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Closeness"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Closeness"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Closeness"
-                    android:textSize="@dimen/font_medium" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Betweenness"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Closeness"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -350,21 +342,29 @@
                     android:text="@string/Betweenness"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Harmonic"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Betweenness"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/Harmonic"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Harmonic"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/Harmonic"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -374,13 +374,13 @@
                     android:text="@string/PageRank"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="@string/PageRank"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="@string/PageRank"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
             </LinearLayout>
 
@@ -398,33 +398,32 @@
                     android:text="2 "
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:id="@+id/tvAlphaDistanceMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="2 "
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvAlphaDistanceMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="2 "-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:id="@+id/tvCloseDistanceMax"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="2 "
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvCloseDistanceMax"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="2 "-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:id="@+id/tvCloseDistanceMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="2 "
-                    android:textSize="@dimen/font_medium" />
-
+<!--                <TextView-->
+<!--                    android:id="@+id/tvCloseDistanceMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="2 "-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
                 <TextView
                     android:id="@+id/tvBetweenDistanceMax"
@@ -435,32 +434,32 @@
                     android:text="3"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:id="@+id/tvBetweenDistanceMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="3"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvBetweenDistanceMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="3"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:id="@+id/tvHarmonyDistanceMax"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="4"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvHarmonyDistanceMax"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="4"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
-                <TextView
-                    android:id="@+id/tvHarmonyDistanceMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="4"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvHarmonyDistanceMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="4"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
                 <TextView
                     android:id="@+id/tvPageRankDistanceMax"
@@ -471,14 +470,14 @@
                     android:text="4"
                     android:textSize="@dimen/font_medium" />
 
-                <TextView
-                    android:id="@+id/tvPageRankDistanceMin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_small"
-                    android:maxLines="1"
-                    android:text="4"
-                    android:textSize="@dimen/font_medium" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvPageRankDistanceMin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/margin_small"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:text="4"-->
+<!--                    android:textSize="@dimen/font_medium" />-->
 
             </LinearLayout>
 

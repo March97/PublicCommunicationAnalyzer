@@ -75,13 +75,13 @@ public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
         aD = jGraph.getaD().getVertexScore(marker.getTitle());
         aDt.setText(formatter.format(aD));
 
-        TextView cTt = (TextView) view.findViewById(R.id.tvCloseTime);
-        cT = jGraph.getcT().getVertexScore(marker.getTitle());
-        cTt.setText(formatter.format(cT));
-
-        TextView cDt = (TextView) view.findViewById(R.id.tvCloseDistance);
-        cD = jGraph.getcD().getVertexScore(marker.getTitle());
-        cDt.setText(formatter.format(cD));
+//        TextView cTt = (TextView) view.findViewById(R.id.tvCloseTime);
+//        cT = jGraph.getcT().getVertexScore(marker.getTitle());
+//        cTt.setText(formatter.format(cT));
+//
+//        TextView cDt = (TextView) view.findViewById(R.id.tvCloseDistance);
+//        cD = jGraph.getcD().getVertexScore(marker.getTitle());
+//        cDt.setText(formatter.format(cD));
 
         TextView bTt = (TextView) view.findViewById(R.id.tvBetweenTime);
         bT = jGraph.getbT().getVertexScore(marker.getTitle());
@@ -91,13 +91,13 @@ public class InfoVertexAdapter implements GoogleMap.InfoWindowAdapter {
         bD = jGraph.getbD().getVertexScore(marker.getTitle());
         bDt.setText(formatter.format(bD));
 
-        TextView hTt = (TextView) view.findViewById(R.id.tvHarmonyTime);
-        hT = jGraph.gethT().getVertexScore(marker.getTitle());
-        hTt.setText(formatter.format(hT));
-
-        TextView hDt = (TextView) view.findViewById(R.id.tvHarmonyDistance);
-        hD = jGraph.gethD().getVertexScore(marker.getTitle());
-        hDt.setText(formatter.format(hD));
+//        TextView hTt = (TextView) view.findViewById(R.id.tvHarmonyTime);
+//        hT = jGraph.gethT().getVertexScore(marker.getTitle());
+//        hTt.setText(formatter.format(hT));
+//
+//        TextView hDt = (TextView) view.findViewById(R.id.tvHarmonyDistance);
+//        hD = jGraph.gethD().getVertexScore(marker.getTitle());
+//        hDt.setText(formatter.format(hD));
 
         TextView prTt = (TextView) view.findViewById(R.id.tvPageRankTime);
         prT = jGraph.getPrT().getVertexScore(marker.getTitle());
