@@ -29,4 +29,7 @@ public interface VertexDao {
 
     @Query("SELECT * FROM vertex_table WHERE id LIKE :id")
     LiveData<Vertex> getVertex(int id);
+
+    @Query("SELECT address FROM vertex_table GROUP BY address")
+    LiveData<List<String>> getAddresses();
 }

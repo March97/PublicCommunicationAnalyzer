@@ -6,6 +6,7 @@
     <string name="dialog_day">Wybierz dzień kursu:</string>
     <string name="dialog_service">Wybierz konkretny kurs:</string>
     <string name="dialog_info">Informacje o grafie:</string>
+    <string name="dialog_add_selector">Wybierz sposób dodawania kursów do grafu:</string>
 
     <string name="DP">Dni powszednie</string>
     <string name="DS">Dni świąteczne</string>

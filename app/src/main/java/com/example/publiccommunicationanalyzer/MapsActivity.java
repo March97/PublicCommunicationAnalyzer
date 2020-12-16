@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         AddLineDialog.AddLineDialogListener, AddDayDialog.AddDayDialogListener,
-        AddServiceDialog.AddServiceDialogListener {
+        AddServiceDialog.AddServiceDialogListener, AddSelectorDialog.AddSelectorDialogListener {
 
     private GoogleMap mMap;
     private MapsViewModel mapsViewModel;
@@ -56,6 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private ArrayList<Marker> markers;
     private ArrayList<Polyline> polylines;
+
+    ArrayList<String> addresses;
 
     private GraphDrawer graphDrawer;
     private JGraph jGraph;
@@ -88,6 +90,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         graphDrawer = new GraphDrawer();
         jGraph = new JGraph();
 
+        try {
+            mapsViewModel.getAddresses().observe(MapsActivity.this, new Observer<List<String>>() {
+                @Override
+                public void onChanged(List<String> strings) {
+                    addresses = (ArrayList) strings;
+                }
+            });
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
         final ImageButton btnInfo = findViewById(R.id.btnInfo);
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,17 +118,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
 
                 if (listsReady) {
-//                    Toast.makeText(MapsActivity.this, "btnDelete", Toast.LENGTH_SHORT).show();
-                    //setVertices(graphEdges);
-
-
                     jGraph.setGraph(graphVertices, graphEdges);
-//                    final Map<String, Double> scores = jGraph.getPrD().getScores();
-//                    System.out.println("SCORES: " + scores.get(String.valueOf(graphVertices.get(0).get(0).getId())));
-//                    jGraph.printEdges();
                     graphDrawer.drawGraph(mMap, graphEdges, graphVertices, markers, polylines);
                     mMap.setInfoWindowAdapter(new InfoVertexAdapter(MapsActivity.this, jGraph));
-//                    mMap.setInfoWindowAdapter(new InfoVertexAdapter(MapsActivity.this, graphVertices, graphEdges));
                     if(!markers.isEmpty())
                         btnInfo.setVisibility(View.VISIBLE);
                     Toast.makeText(MapsActivity.this, "Rysuję graf", Toast.LENGTH_SHORT).show();
@@ -146,7 +154,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 if (listsReady) {
-                    openAddLineDialog();
+//                    openAddLineDialog();
+                    openAddSelectorDialog();
 
                     //Toast.makeText(MapsActivity.this, "btnAdd", Toast.LENGTH_SHORT).show();
 
@@ -252,6 +261,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         });
+    }
+
+    public void openAddSelectorDialog() {
+        AddSelectorDialog addSelectorDialog = new AddSelectorDialog();
+        addSelectorDialog.show(getSupportFragmentManager(), "selector dialog");
+    }
+
+    @Override
+    public void applyIntSelector(int choice) throws ExecutionException, InterruptedException {
+        if (choice == 1)
+            openAddLineDialog();
+        else
+            System.out.println("not implemented");
     }
 
     public void openAddLineDialog() {
