@@ -39,9 +39,7 @@ public class AddSelectorDialog extends AppCompatDialogFragment {
                 choice = 1;
                 try {
                     listener.applyIntSelector(choice);
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
+                } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 }
                 dismiss();

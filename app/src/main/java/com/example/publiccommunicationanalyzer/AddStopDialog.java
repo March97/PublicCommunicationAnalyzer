@@ -15,15 +15,15 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class AddLineDialog extends AppCompatDialogFragment {
+public class AddStopDialog extends AppCompatDialogFragment {
 
     public Spinner s;
-    public ArrayList<String> linesList;
+    public ArrayList<Vertex> stopsList;
     public int pos;
-    private AddLineDialogListener listener;
+    private AddStopDialogListener listener;
 
-    public AddLineDialog(ArrayList<String> linesList) {
-        this.linesList = linesList;
+    public AddStopDialog(ArrayList<Vertex> stopsList) {
+        this.stopsList = stopsList;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class AddLineDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog, null);
 
         builder.setView(view)
-                .setTitle(R.string.dialog_line)
+                .setTitle(R.string.dialog_stop)
                 .setNegativeButton("wyjdź", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -42,16 +42,16 @@ public class AddLineDialog extends AppCompatDialogFragment {
                 .setPositiveButton("dalej", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String line = linesList.get(pos);
+                        int id = stopsList.get(pos).getId();
                         try {
-                            listener.applyTextsLine(line);
+                            listener.applyTextsStop(id);
                         } catch (ExecutionException | InterruptedException e) {
                             e.printStackTrace();
                         }
                     }
                 });
         s = view.findViewById(R.id.dialog_spinner);
-        s.setAdapter(new AddLineSpinnerAdapter(getContext(), R.layout.item_line, linesList));
+        s.setAdapter(new AddStopSpinnerAdapter(getContext(), R.layout.item_stop, stopsList));
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -69,13 +69,13 @@ public class AddLineDialog extends AppCompatDialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listener = (AddLineDialogListener) context;
+            listener = (AddStopDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
                     "must implement ExampleDialogListener");
         }
     }
-    public interface AddLineDialogListener {
-        void applyTextsLine(String line) throws ExecutionException, InterruptedException;
+    public interface AddStopDialogListener {
+        void applyTextsStop(int stop) throws ExecutionException, InterruptedException;
     }
 }

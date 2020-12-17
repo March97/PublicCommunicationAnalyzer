@@ -45,9 +45,7 @@ public class AddDayDialog extends AppCompatDialogFragment {
                         String line = daysList.get(pos);
                         try {
                             listener.applyTextsDay(line);
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
+                        } catch (ExecutionException | InterruptedException e) {
                             e.printStackTrace();
                         }
                     }

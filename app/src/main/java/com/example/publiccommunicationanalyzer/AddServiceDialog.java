@@ -45,9 +45,7 @@ public class AddServiceDialog extends AppCompatDialogFragment {
                         String line = servicesList.get(pos);
                         try {
                             listener.applyTextsService(line);
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
+                        } catch (ExecutionException | InterruptedException e) {
                             e.printStackTrace();
                         }
                     }

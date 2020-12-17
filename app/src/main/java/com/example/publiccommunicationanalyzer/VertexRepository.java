@@ -61,6 +61,23 @@ public class VertexRepository {
         }
     }
 
+    public LiveData<List<Vertex>> getByAddresses(String address) throws ExecutionException, InterruptedException {
+        return new  VertexRepository.GetByAddressesAsyncTask(vertexDao).execute(address).get();
+    }
+
+    private static class GetByAddressesAsyncTask extends AsyncTask<String, Void, LiveData<List<Vertex>>> {
+
+        private VertexDao vertexDao;
+        private GetByAddressesAsyncTask(VertexDao vertexDao) {
+            this.vertexDao = vertexDao;
+        }
+
+        @Override
+        protected LiveData<List<Vertex>> doInBackground(String... addresses) {
+            return vertexDao.getByAddresses(addresses[0]);
+        }
+    }
+
     private static class GetVertexAsyncTask extends AsyncTask<Integer, Void, LiveData<Vertex>> {
 
         private VertexDao vertexDao;

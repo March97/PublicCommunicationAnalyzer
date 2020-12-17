@@ -22,6 +22,8 @@ public class MapsViewModel extends AndroidViewModel {
     private LiveData<List<Edge>> selectedEdges;
     private LiveData<Vertex> vertex;
     private LiveData<List<String>> addresses;
+    private LiveData<List<Vertex>> vertexIds;
+    private LiveData<List<Edge>> selectedEdgesByList;
 
     public MapsViewModel(@NonNull Application application) throws ExecutionException, InterruptedException {
         super(application);
@@ -95,5 +97,20 @@ public class MapsViewModel extends AndroidViewModel {
     public LiveData<List<String>> getAddresses() throws ExecutionException, InterruptedException {
         addresses = vertexRepository.getAddresses();
         return addresses;
+    }
+
+    public LiveData<List<Vertex>> getByAddresses(String address) throws ExecutionException, InterruptedException {
+        vertexIds = vertexRepository.getByAddresses(address);
+        return vertexIds;
+    }
+
+    public LiveData<List<String>> getServicesByV(int id) throws ExecutionException, InterruptedException {
+        services = edgeRepository.getServicesByV(id);
+        return services;
+    }
+
+    public LiveData<List<Edge>> getEdgesByServicesList(List<String> services) throws ExecutionException, InterruptedException {
+        selectedEdgesByList = edgeRepository.getEdgesByServicesList(services);
+        return selectedEdgesByList;
     }
 }

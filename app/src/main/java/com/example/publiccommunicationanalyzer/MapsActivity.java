@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         AddLineDialog.AddLineDialogListener, AddDayDialog.AddDayDialogListener,
-        AddServiceDialog.AddServiceDialogListener, AddSelectorDialog.AddSelectorDialogListener {
+        AddServiceDialog.AddServiceDialogListener, AddSelectorDialog.AddSelectorDialogListener, AddAddressDialog.AddAddressDialogListener, AddStopDialog.AddStopDialogListener {
 
     private GoogleMap mMap;
     private MapsViewModel mapsViewModel;
@@ -43,21 +43,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String selectedLine;
     private String selectedDay;
     private String selectedService;
+    private String selectedAddress;
 
     private ArrayList<ArrayList<Edge>> graphEdges;
     private ArrayList<ArrayList<Vertex>> graphVertices;
 //    private ArrayList<Vertex> graphVertices;
 
+    private Observer<List<Vertex>> observerVertexIdsList;
     private Observer<List<String>> observerLinesList;
     private Observer<List<String>> observerDaysList;
     private Observer<List<String>> observerServicesList;
     private Observer<List<Edge>> observerSelectedEdgesList;
+    private Observer<List<Edge>> observerEdgesList;
     private Observer<Vertex> observerGetVertex;
+    private Observer<List<String>> observerServicesByVList;
 
     private ArrayList<Marker> markers;
     private ArrayList<Polyline> polylines;
 
-    ArrayList<String> addresses;
+    private ArrayList<String> addresses;
+    private ArrayList<Vertex> selectedVertexIds;
+    private ArrayList<String> servicesToAdd;
 
     private GraphDrawer graphDrawer;
     private JGraph jGraph;
@@ -229,7 +235,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    private void setObserverSelectedEdgesList() throws ExecutionException, InterruptedException {
+    private void setObserverSelectedEdgesList(String selectedService) throws ExecutionException, InterruptedException {
         mapsViewModel.getSelectedEdges(selectedService).observe(this, observerSelectedEdgesList = new Observer<List<Edge>>() {
             @Override
             public void onChanged(List<Edge> edges) {
@@ -263,18 +269,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
-    public void openAddSelectorDialog() {
-        AddSelectorDialog addSelectorDialog = new AddSelectorDialog();
-        addSelectorDialog.show(getSupportFragmentManager(), "selector dialog");
+    private void setObserverGetVertexIds(String selectedAddress) throws ExecutionException, InterruptedException {
+        mapsViewModel.getByAddresses(selectedAddress).observe(this, observerVertexIdsList = new Observer<List<Vertex>>() {
+            @Override
+            public void onChanged(List<Vertex> vertexIds) {
+                selectedVertexIds = (ArrayList) vertexIds;
+//                Toast.makeText(MapsActivity.this, selectedVertexIds.toString(), Toast.LENGTH_SHORT).show();
+                openAddStopDialog(selectedVertexIds);
+            }
+        });
     }
 
-    @Override
-    public void applyIntSelector(int choice) throws ExecutionException, InterruptedException {
-        if (choice == 1)
-            openAddLineDialog();
-        else
-            System.out.println("not implemented");
+    private void setObserverGetServicesByV(int id) throws ExecutionException, InterruptedException {
+
+        mapsViewModel.getServicesByV(id).observe(this, observerServicesByVList = new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+                servicesToAdd = (ArrayList) strings;
+                selectedServices.addAll(servicesToAdd);
+                Toast.makeText(MapsActivity.this, servicesToAdd.toString(), Toast.LENGTH_SHORT).show();
+                try {
+                    setObserverGetEdgesByList(servicesToAdd);
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+//                System.out.println(servicesToAdd.toString());
+//                System.out.println(servicesToAdd.size());
+            }
+        });
     }
+
+    private void setObserverGetEdgesByList(List<String> services) throws ExecutionException, InterruptedException {
+
+        mapsViewModel.getEdgesByServicesList(services).observe(this, observerEdgesList = new Observer<List<Edge>>() {
+            @Override
+            public void onChanged(List<Edge> edges) {
+                selectedEdgesList = (ArrayList) edges;
+                graphEdges.add(selectedEdgesList);
+                //Toast.makeText(MapsActivity.this, "onChanged  wybrane łuki" + edges.size() + " " + selectedEdgesList.size() + " " + graphEdges.size(), Toast.LENGTH_SHORT).show();
+                try {
+                    setVertices(graphEdges);
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+
 
     public void openAddLineDialog() {
         AddLineDialog addLineDialog = new AddLineDialog(linesList);
@@ -317,7 +359,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapsViewModel.getSelectedEdges(selectedService);
         mapsViewModel.getSelectedEdges(selectedService).removeObserver(observerSelectedEdgesList);
-        setObserverSelectedEdgesList();
+        setObserverSelectedEdgesList(selectedService);
         Toast.makeText(MapsActivity.this, "Dodano kurs: " + selectedService, Toast.LENGTH_SHORT).show();
     }
 
@@ -335,5 +377,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 setObserverGetVertex(edge.getV2(), i);
             }
         }
+    }
+
+    public void openAddSelectorDialog() {
+        AddSelectorDialog addSelectorDialog = new AddSelectorDialog();
+        addSelectorDialog.show(getSupportFragmentManager(), "selector dialog");
+    }
+
+    @Override
+    public void applyIntSelector(int choice) throws ExecutionException, InterruptedException {
+        if (choice == 1)
+            openAddLineDialog();
+        else
+            openAddAddressDialog();
+    }
+
+    public void openAddAddressDialog() {
+        AddAddressDialog addAddressDialog = new AddAddressDialog(addresses);
+        addAddressDialog.show(getSupportFragmentManager(), "add address dialog");
+    }
+
+    @Override
+    public void applyTextsAddress(String address) throws ExecutionException, InterruptedException {
+        selectedAddress = address;
+        setObserverGetVertexIds(selectedAddress);
+        Toast.makeText(MapsActivity.this, address, Toast.LENGTH_SHORT).show();
+    }
+
+    public void openAddStopDialog(ArrayList<Vertex> vertices) {
+        AddStopDialog addStopDialog = new AddStopDialog(vertices);
+        addStopDialog.show(getSupportFragmentManager(), "add stop dialog");
+    }
+
+    @Override
+    public void applyTextsStop(int stop) throws ExecutionException, InterruptedException {
+        setObserverGetServicesByV(stop);
     }
 }

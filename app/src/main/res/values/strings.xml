@@ -6,7 +6,9 @@
     <string name="dialog_day">Wybierz dzień kursu:</string>
     <string name="dialog_service">Wybierz konkretny kurs:</string>
     <string name="dialog_info">Informacje o grafie:</string>
+    <string name="dialog_address">Dodaj kursy przejeżdżające przez ulicę:</string>
     <string name="dialog_add_selector">Wybierz sposób dodawania kursów do grafu:</string>
+    <string name="dialog_stop">Wybierz numer przystanku:</string>
 
     <string name="DP">Dni powszednie</string>
     <string name="DS">Dni świąteczne</string>

@@ -68,6 +68,14 @@ public class EdgeRepository {
         return new EdgeRepository.GetSelectedEdgesAsyncTask(edgeDao).execute(service).get();
     }
 
+    public LiveData<List<String>> getServicesByV(int id) throws ExecutionException, InterruptedException {
+        return new EdgeRepository.GetServicesByVAsyncTask(edgeDao).execute(id).get();
+    }
+
+    public LiveData<List<Edge>> getEdgesByServicesList(List<String> services) throws ExecutionException, InterruptedException {
+        return new EdgeRepository.GetEdgesByServicesListAsyncTask(edgeDao).execute(services).get();
+    }
+
     private static class GetLinesAsyncTask extends AsyncTask<Void, Void, LiveData<List<String>>> {
 
         private EdgeDao edgeDao;
@@ -117,6 +125,32 @@ public class EdgeRepository {
         @Override
         protected LiveData<List<Edge>> doInBackground(String... strings) {
             return edgeDao.getEdgesByService(strings[0]);
+        }
+    }
+
+    private static class GetEdgesByServicesListAsyncTask extends AsyncTask<List<String>, Void, LiveData<List<Edge>>> {
+
+        private EdgeDao edgeDao;
+        private GetEdgesByServicesListAsyncTask(EdgeDao edgeDao) {
+            this.edgeDao = edgeDao;
+        }
+
+        @Override
+        protected LiveData<List<Edge>> doInBackground(List<String>... lists) {
+            return edgeDao.getEdgesByServicesList(lists[0]);
+        }
+    }
+
+    private static class GetServicesByVAsyncTask extends AsyncTask<Integer, Void, LiveData<List<String>>> {
+
+        private EdgeDao edgeDao;
+        private GetServicesByVAsyncTask(EdgeDao edgeDao) {
+            this.edgeDao = edgeDao;
+        }
+
+        @Override
+        protected LiveData<List<String>> doInBackground(Integer... ints) {
+            return edgeDao.getServiceByV(ints[0]);
         }
     }
 //

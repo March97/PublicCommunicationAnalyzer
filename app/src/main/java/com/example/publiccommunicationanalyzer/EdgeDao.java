@@ -39,4 +39,10 @@ public interface EdgeDao {
 
     @Query("SELECT * FROM edge_table WHERE service LIKE :service")
     LiveData<List<Edge>> getEdgesByService(String service);
+
+    @Query("SELECT service FROM edge_table WHERE v2 LIKE :id AND day LIKE 'DP'")
+    LiveData<List<String>> getServiceByV(Integer id);
+
+    @Query("SELECT * FROM edge_table WHERE service IN (:services) AND day LIKE 'DP'")
+    LiveData<List<Edge>> getEdgesByServicesList(List<String> services);
 }

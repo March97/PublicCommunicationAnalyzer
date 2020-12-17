@@ -32,4 +32,7 @@ public interface VertexDao {
 
     @Query("SELECT address FROM vertex_table GROUP BY address")
     LiveData<List<String>> getAddresses();
+
+    @Query("SELECT * FROM vertex_table WHERE address LIKE :address")
+    LiveData<List<Vertex>> getByAddresses(String address);
 }
